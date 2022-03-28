@@ -8,31 +8,34 @@ function CoursesLibrary() {
     {
       courseId: "1",
       xpValue: 100,
-      title: "The Complete Web Developer in 2020",
+      title: "Ghidul complet pentru a invata Python 2020",
       description:
         "Learn web development by building modern, responsive websites",
-      image: "https://miro.medium.com/proxy/1*h5UGPzaL1E4dIy_JWDrsAw.png",
+      image:
+        "https://www.educative.io/v2api/editorpage/5984239968321536/image/5203686436372480",
       tags: ["PYTHON"],
       reviews: 12,
       rating: 4.5,
     },
     {
       courseId: "2",
-      title: "The Complete Node.js Developer Course",
+      title: "Java - Introducere",
       description:
         "Learn Node.js by building real-world applications with Node, Express, MongoDB, and more!",
-      image: "https://miro.medium.com/proxy/1*h5UGPzaL1E4dIy_JWDrsAw.png",
+      image:
+        "https://ubiqum.com/assets/uploads/2019/07/code-coder-coding-270348.jpg",
       tags: ["JAVA"],
       reviews: 11,
-      rating: 4.5,
+      rating: 3,
       xpValue: 100,
     },
     {
       courseId: "3",
-      title: "The Complete 2020 Web Development Bootcamp",
+      title: "Amazon workshop cu Java si Spring",
       description:
         "Learn web development by building modern, responsive websites",
-      image: "https://miro.medium.com/proxy/1*h5UGPzaL1E4dIy_JWDrsAw.png",
+      image:
+        "https://marvel-b1-cdn.bc0a.com/f00000000156946/www.jrebel.com/sites/default/files/image/2020-09/image-blog-aws-application.jpg",
       tags: ["JAVA", "AWS"],
       reviews: 10,
       rating: 4.5,
@@ -46,7 +49,7 @@ function CoursesLibrary() {
       image: "https://miro.medium.com/proxy/1*h5UGPzaL1E4dIy_JWDrsAw.png",
       tags: ["MYSQL"],
       reviews: 9,
-      rating: 4.5,
+      rating: 5,
       xpValue: 100,
     },
     {

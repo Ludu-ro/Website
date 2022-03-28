@@ -13,7 +13,14 @@ function CourseCard({ course }: { course: Course }) {
       fontSize={["2xl", "md"]}
       borderRadius="lg"
     >
-      <Image p="4" pb="0" src={course.image} alt={course.title} />
+      <Image
+        h="15rem"
+        objectFit="cover"
+        p="4"
+        pb="0"
+        src={course.image}
+        alt={course.title}
+      />
 
       <Box display="flex" flexDirection="column" gap="2" p="4">
         <Box
