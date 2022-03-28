@@ -1,15 +1,17 @@
-import React from 'react';
-import { Flex, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { OnlinePlayers } from "../blocks";
 
 function Topnav() {
-	return (
-		<Flex p="4" bg="secondary" alignItems="center">
-			<Text ml="2" flex="1" fontSize="xl" fontWeight="bold">
-				<Link to="/">Lorem ipsum</Link>
-			</Text>
-		</Flex>
-	);
+  return (
+    <Flex color="white" bg="background-dark" p="4" alignItems="center">
+      <Text ml="2" flex="1" fontSize="xl" fontWeight="bold">
+        <Link to="/">Ludu.ro</Link>
+      </Text>
+      <OnlinePlayers />
+    </Flex>
+  );
 }
 
 export default Topnav;

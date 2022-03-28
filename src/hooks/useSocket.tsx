@@ -27,7 +27,6 @@ function useSocket({ onConnect, onMessage, onDisconnect }: UseSocketInterface) {
 				if (onDisconnect) onDisconnect();
 			})
 			socket.current.addEventListener('message', (event) => {
-				console.log(event)
 				setData(JSON.parse(event.data))
 				if (onMessage) onMessage(data);
 			})
@@ -36,6 +35,7 @@ function useSocket({ onConnect, onMessage, onDisconnect }: UseSocketInterface) {
 
 	const disconnect = () => {
 		socket.current?.close()
+		setIsConnected(false);
 	}
 
 	useEffect(() => {
@@ -43,8 +43,8 @@ function useSocket({ onConnect, onMessage, onDisconnect }: UseSocketInterface) {
 		return () => disconnect();
 	}, []);
 
-	const sendData = (action: string, message: string) => {
-		socket.current?.send(JSON.stringify({ action, message }));
+	const sendData = (data: object) => {
+		socket.current?.send(JSON.stringify(data));
 	}
 
 	return {
