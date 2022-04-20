@@ -5,7 +5,7 @@ import { Stars } from "../blocks";
 
 function CourseCard({ course }: { course: Course }) {
   return (
-    <Box bg="white" color="secondary" cursor="pointer" w="sm">
+    <Box bg="secondary" color="font-primary" cursor="pointer" w="sm">
       <Image
         w="100%"
         h="40"
@@ -27,7 +27,7 @@ function CourseCard({ course }: { course: Course }) {
 
         <Box display="flex" alignItems="baseline" gap="2">
           {course.tags?.map((tag) => (
-            <Badge color="white" bg="secondary">
+            <Badge color="font-secondary" bg="primary-dark">
               {tag}
             </Badge>
           ))}
@@ -39,7 +39,7 @@ function CourseCard({ course }: { course: Course }) {
           <Stars rating={course.rating || 1} />
           {course.reviews} reviews
           <Box flex="1" />
-          <Badge p="1" color="white" bg="primary">
+          <Badge p="1" bg="tertiary">
             {course.xpValue} xp
           </Badge>
         </Box>

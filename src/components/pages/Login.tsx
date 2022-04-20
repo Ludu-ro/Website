@@ -9,8 +9,8 @@ function Login() {
       placeItems="center"
       direction="column"
       alignItems="center"
-      bg="secondary"
-      color="white"
+      bg="primary-dark"
+      color="font-secondary"
     >
       <Text fontSize="2xl"> Autentificare </Text>
     </Flex>

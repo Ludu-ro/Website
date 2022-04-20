@@ -21,17 +21,23 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
   return (
     <Box position="relative">
       {/* Tag */}
-      <Box pl="10" as="h2" fontSize="xl" fontWeight="bold">
+      <Box
+        color="font-secondary"
+        pl="10"
+        as="h2"
+        fontSize="xl"
+        fontWeight="bold"
+      >
         {tag}
       </Box>
 
       {/* Left arrow */}
       <IconButton
         aria-label="left-arrow"
-        bg="secondary-dark"
+        bg="black"
         opacity="0"
         _hover={{
-          opacity: "0.2",
+          opacity: "0.25",
         }}
         icon={<FontAwesomeIcon icon={faArrowLeft} />}
         onClick={() => scroll(-200)}
@@ -44,10 +50,10 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
       {/* Right arrow */}
       <IconButton
         aria-label="right-arrow"
-        bg="secondary-dark"
+        bg="black"
         opacity="0"
         _hover={{
-          opacity: "0.2",
+          opacity: "0.25",
         }}
         icon={<FontAwesomeIcon icon={faArrowRight} />}
         onClick={() => scroll(200)}

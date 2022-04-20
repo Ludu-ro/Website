@@ -6,10 +6,12 @@ import "./App.css";
 
 const theme = extendTheme({
   colors: {
-    primary: "#FF8000",
-    "primary-light": "#FFD505",
-    secondary: "#321E50",
-    "secondary-dark": "#190f29",
+    primary: "#5b0792",
+    "primary-dark": "#3d0561",
+    secondary: "#FFFFFF",
+    tertiary: "#E5862A",
+    "font-primary": "black",
+    "font-secondary": "#FFFFFF",
   },
 });
 

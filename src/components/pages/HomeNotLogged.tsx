@@ -9,9 +9,8 @@ function Home() {
   const PrimaryButton = ({ text, url }: any) => (
     <Button
       onClick={() => navigate(url)}
-      borderRadius="3xl"
-      bg="primary"
-      color="white"
+      bg="tertiary"
+      color="font-secondary"
       w="32"
     >
       {text}
@@ -25,11 +24,11 @@ function Home() {
       placeItems="center"
       direction="column"
       alignItems="center"
-      bg="secondary"
-      color="white"
+      bg="primary-dark"
+      color="font-secondary"
     >
       {/* Title */}
-      <Text fontSize="2xl" mt="10%">
+      <Text color="font-secondary" fontSize="3xl" mt="5%">
         Bine ai venit!
       </Text>
 
@@ -40,7 +39,7 @@ function Home() {
       </Flex>
 
       {/* Rest of courses */}
-      <Box mt="10%" mb="10">
+      <Box mt="5%" mb="10">
         <CoursesLibrary />
       </Box>
     </Flex>
