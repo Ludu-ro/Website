@@ -9,7 +9,7 @@ function Login() {
       placeItems="center"
       direction="column"
       alignItems="center"
-      bg="background"
+      bg="secondary"
       color="white"
     >
       <Text fontSize="2xl"> Autentificare </Text>

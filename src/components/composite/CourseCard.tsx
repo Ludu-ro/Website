@@ -5,19 +5,11 @@ import { Stars } from "../blocks";
 
 function CourseCard({ course }: { course: Course }) {
   return (
-    <Box
-      bg="white"
-      color="background"
-      cursor="pointer"
-      w={["2xl", "md"]}
-      fontSize={["2xl", "md"]}
-      borderRadius="lg"
-    >
+    <Box bg="white" color="secondary" cursor="pointer" w="sm">
       <Image
-        h="15rem"
+        w="100%"
+        h="40"
         objectFit="cover"
-        p="4"
-        pb="0"
         src={course.image}
         alt={course.title}
       />
@@ -35,7 +27,7 @@ function CourseCard({ course }: { course: Course }) {
 
         <Box display="flex" alignItems="baseline" gap="2">
           {course.tags?.map((tag) => (
-            <Badge color="white" bg="background">
+            <Badge color="white" bg="secondary">
               {tag}
             </Badge>
           ))}
@@ -44,9 +36,7 @@ function CourseCard({ course }: { course: Course }) {
         <Text isTruncated>{course.description}</Text>
 
         <Box display="flex" gap="2" alignItems="center">
-          <div>
-            <Stars rating={course.rating || 1} />
-          </div>
+          <Stars rating={course.rating || 1} />
           {course.reviews} reviews
           <Box flex="1" />
           <Badge p="1" color="white" bg="primary">

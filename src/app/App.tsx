@@ -8,9 +8,8 @@ const theme = extendTheme({
   colors: {
     primary: "#FF8000",
     "primary-light": "#FFD505",
-    secondary: "white",
-    background: "#321E50",
-    "background-dark": "#190f29",
+    secondary: "#321E50",
+    "secondary-dark": "#190f29",
   },
 });
 

@@ -4,11 +4,13 @@ import { Badge, Box } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Shows the number of online players.
+ * Can use mock data.
+ */
 function OnlinePlayers() {
-  // const { isConnected, data, sendData } = useSocket({});
-  const isConnected = false;
-  const sendData = (test: any) => {};
-  const data = { message: 2 };
+  const { isConnected, data, sendData } = useSocket({ isMock: true });
+
   useEffect(() => {
     if (isConnected) {
       sendData({ test: "test" });
