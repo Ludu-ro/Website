@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { CoursesLibrary } from "../constructed";
+import { Assistant, CoursesLibrary } from "../constructed";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -23,9 +23,9 @@ function Home() {
       gap="8"
       placeItems="center"
       direction="column"
-      alignItems="center"
       bg="primary-dark"
       color="font-secondary"
+      position="relative"
     >
       {/* Title */}
       <Text color="font-secondary" fontSize="3xl" mt="5%">
@@ -42,6 +42,8 @@ function Home() {
       <Box mt="5%" mb="10">
         <CoursesLibrary />
       </Box>
+
+      <Assistant right="5" bottom="0" />
     </Flex>
   );
 }

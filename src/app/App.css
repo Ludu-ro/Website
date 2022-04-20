@@ -6,3 +6,16 @@ body {
   min-height: 100vh;
   grid-template-rows: 7.5vh 1fr 7.5vh;
 }
+ 
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 10%;
+	border: 20px solid transparent;
+	border-top-color: white;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
+}

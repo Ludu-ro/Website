@@ -18,12 +18,16 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
     ref.current.scrollLeft += scrollOffset;
   };
 
+  useEffect(() => {
+    scroll(200);
+  }, [ref]);
+
   return (
     <Box position="relative">
       {/* Tag */}
       <Box
         color="font-secondary"
-        pl="10"
+        pl={["0", "10"]}
         as="h2"
         fontSize="xl"
         fontWeight="bold"
@@ -35,7 +39,7 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
       <IconButton
         aria-label="left-arrow"
         bg="black"
-        opacity="0"
+        opacity="0.1"
         _hover={{
           opacity: "0.25",
         }}
@@ -51,7 +55,7 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
       <IconButton
         aria-label="right-arrow"
         bg="black"
-        opacity="0"
+        opacity="0.1"
         _hover={{
           opacity: "0.25",
         }}
@@ -66,7 +70,7 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
       {/* Courses */}
       <Box
         w="100vw"
-        pl="10"
+        pl={["0", "10"]}
         overflowX="scroll"
         scrollBehavior="smooth"
         overflowY="hidden"
