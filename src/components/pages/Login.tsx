@@ -2,14 +2,9 @@ import React from "react";
 import { 
   Flex, 
   Text, 
-  Container,
-  ChakraProvider,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
-  FormLabel,
   Input,
-  extendTheme,
   Box, 
   Button
 } from "@chakra-ui/react";
