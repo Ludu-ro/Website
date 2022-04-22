@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSocket } from "../../hooks/useSocket";
+import { useSocket } from "../../hooks";
 import { Badge, Box } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";

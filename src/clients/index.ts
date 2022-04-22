@@ -1,3 +1,5 @@
-import getCourses from "./getCourses";
+import getCourses from "./courses/getCourses";
 
-export { getCourses };
+import login from "./users/login";
+
+export { getCourses, login };

@@ -1,6 +1,7 @@
 body {
 	overscroll-behavior: none;
 }
+
 .app {
   display: grid;
   min-height: 100vh;
@@ -19,4 +20,39 @@ body {
 	margin-left: -10px;
 	margin-bottom: -20px;
 	box-shadow: 1px 0px 0px 0px #000000;
+}
+
+.loading-color {
+	background-color: rgb(50, 50, 50);
+  animation: 3s ease-in-out infinite color;
+}  
+
+@keyframes color {
+  0% {
+    background-color: rgb(94, 94, 94)
+  }
+  50% {
+    background-color: #898989;
+  }
+  100% {
+    background-color: rgb(94, 94, 94)
+  }
+}
+
+.no-drag {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+} 
+
+.no-drag>* {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }

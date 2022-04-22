@@ -1,19 +1,26 @@
 import React, { useContext, useEffect } from "react";
 import { Flex } from "@chakra-ui/react";
-import { CoursesContext } from "../../hooks/CourseContext";
-import { ActionType } from "../../hooks/actions/CourseActions";
+import { CoursesContext, CourseActionType } from "../../hooks";
 import { CoursesLibraryItem } from "./";
 import { getCourses } from "../../clients";
+import CoursesLibraryLoading from "./CoursesLibraryLoading";
 
 function CoursesLibrary() {
-  const { courses, dispatch } = useContext(CoursesContext);
+  const { courses, dispatch, isLoading } = useContext(CoursesContext);
 
   useEffect(() => {
     getCourses().then((courses) => {
-      console.log(courses);
-      dispatch({ type: ActionType.SetCourses, courses });
+      dispatch({ type: CourseActionType.SetCourses, courses });
     });
   }, []);
+
+  if (isLoading) {
+    return (
+      <Flex alignItems="flex-start" direction="column" gap="8">
+        <CoursesLibraryLoading />
+      </Flex>
+    );
+  }
 
   return (
     <Flex alignItems="flex-start" direction="column" gap="8">

@@ -1,6 +1,5 @@
-import { getCourses } from "../../clients";
 import { Course } from "../../types/Course";
-import { ActionType, CourseActions } from "../actions/CourseActions";
+import { CourseActionType, CourseActions } from "../../hooks";
 import { CourseMap, CourseState } from "../CourseContext";
 
 const courseArrayToCourseMap = (courses: Array<Course>): CourseMap => {
@@ -17,13 +16,13 @@ const courseArrayToCourseMap = (courses: Array<Course>): CourseMap => {
   return courseMap;
 };
 
-export const courseReducer = (
+export const CourseReducer = (
   state: CourseState,
   action: CourseActions
 ): CourseState => {
   switch (action.type) {
     // used when provided with a new list of courses
-    case ActionType.SetCourses: {
+    case CourseActionType.SetCourses: {
       const { courses } = action;
       return {
         ...state,

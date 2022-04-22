@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useReducer, useState } from "react";
 import { Course } from "../types/Course";
 import { CourseActions } from "./actions/CourseActions";
-import { courseReducer } from "./reducers/CourseReducer";
+import { CourseReducer } from "./reducers/CourseReducer";
 
 export type CourseMap = {
   [tag: string]: Array<Course>; // tag to course array dictionary
@@ -25,7 +25,7 @@ const CoursesContext = createContext<CourseContextInterface>({
 });
 
 const CoursesContextProvider = ({ children }: { children: ReactNode }) => {
-  const [courses, dispatch] = useReducer(courseReducer, {
+  const [courses, dispatch] = useReducer(CourseReducer, {
     courses: {},
     isLoading: true,
   });

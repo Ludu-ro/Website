@@ -1,4 +1,5 @@
+import ActionButton from "./ActionButton";
 import OnlinePlayers from "./OnlinePlayers";
 import Stars from "./Stars";
 
-export { OnlinePlayers, Stars };
+export { ActionButton, OnlinePlayers, Stars };

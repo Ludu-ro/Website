@@ -1,3 +1,4 @@
 import CourseCard from "./CourseCard";
+import CourseCardLoading from "./CourseCardLoading";
 
-export { CourseCard };
+export { CourseCard, CourseCardLoading };

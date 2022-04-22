@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, IconButton } from "@chakra-ui/react";
 import { CourseCard } from "../composite";
 import { Course } from "../../types/Course";

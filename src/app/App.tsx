@@ -1,7 +1,7 @@
 import React from "react";
 import { ChakraProvider, extendTheme, Box } from "@chakra-ui/react";
 import { Routes } from "../routes/";
-import { Topnav, Footer } from "../components/constructed";
+import { Topnav, Footer, Assistant } from "../components/constructed";
 import "./App.css";
 
 const theme = extendTheme({
@@ -21,6 +21,7 @@ export const App = () => (
       <Topnav />
       <Routes />
       <Footer />
+      <Assistant right="5" bottom="0" />
     </Box>
   </ChakraProvider>
 );

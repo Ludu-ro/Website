@@ -1,21 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { Assistant, CoursesLibrary } from "../constructed";
+import { CoursesLibrary } from "../constructed";
 import { useNavigate } from "react-router-dom";
+import { ActionButton } from "../blocks";
 
 function Home() {
   const navigate = useNavigate();
-
-  const PrimaryButton = ({ text, url }: any) => (
-    <Button
-      onClick={() => navigate(url)}
-      bg="tertiary"
-      color="font-secondary"
-      w="32"
-    >
-      {text}
-    </Button>
-  );
 
   return (
     <Flex
@@ -25,7 +15,6 @@ function Home() {
       direction="column"
       bg="primary-dark"
       color="font-secondary"
-      position="relative"
     >
       {/* Title */}
       <Text color="font-secondary" fontSize="3xl" mt="5%">
@@ -34,16 +23,18 @@ function Home() {
 
       {/* Login & register buttons */}
       <Flex gap="4">
-        <PrimaryButton url="/login" text="Autentificare" />
-        <PrimaryButton url="/register" text="Inregistrare" />
+        <ActionButton onClick={() => navigate("/login")}>
+          Autentificare
+        </ActionButton>
+        <ActionButton onClick={() => navigate("/register")}>
+          Inregistrare
+        </ActionButton>
       </Flex>
 
       {/* Rest of courses */}
       <Box mt="5%" mb="10">
         <CoursesLibrary />
       </Box>
-
-      <Assistant right="5" bottom="0" />
     </Flex>
   );
 }

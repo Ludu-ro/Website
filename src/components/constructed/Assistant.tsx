@@ -1,8 +1,9 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import AssistantImg from "../../assets/Assistant.png";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
 
-function Bubble({ message }: any) {
+function Bubble({ text }: { text: string }) {
   return (
     <Box
       color="black"
@@ -13,10 +14,10 @@ function Bubble({ message }: any) {
       bottom="32"
       borderRadius="lg"
       className="speech-bubble"
-      w={Math.log(message.length) * 50}
+      w={Math.log(text.length) * 50}
       border="1px solid black"
     >
-      <Text> {message}</Text>
+      <Text> {text}</Text>
     </Box>
   );
 }
@@ -29,12 +30,11 @@ function Assistant({ left, right, top, bottom }: any) {
   ];
   const [messageIndex, setMessageIndex] = useState(0);
   const [messageLength, setMessageLength] = useState(0);
-
-  const [message, setMessage] = useState("");
+  const [bubbleText, setBubbleText] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessage("");
+      setBubbleText("");
       setMessageIndex((messageIndex) => {
         const newIndex = (messageIndex + 1) % messages.length;
         setMessageLength(messages[newIndex].length);
@@ -47,20 +47,29 @@ function Assistant({ left, right, top, bottom }: any) {
   useEffect(() => {
     // set message with every letter
     const interval = setInterval(() => {
-      setMessage((message) =>
-        message.length < messageLength
-          ? message + messages[messageIndex][message.length]
-          : message
+      setBubbleText((bubbleText) =>
+        bubbleText.length < messageLength
+          ? bubbleText + messages[messageIndex][bubbleText.length]
+          : bubbleText
       );
     }, 25);
     return () => clearInterval(interval);
   }, [messageIndex, messageLength]);
 
   return (
-    <Box position="fixed" left={left} right={right} top={top} bottom={bottom}>
-      {message && <Bubble message={message} />}
-      <Image alt="Assistant face" src={AssistantImg} w="24" />
-    </Box>
+    <Draggable>
+      <Box
+        className="no-drag"
+        position="fixed"
+        left={left}
+        right={right}
+        top={top}
+        bottom={bottom}
+      >
+        {bubbleText && <Bubble text={bubbleText} />}
+        <Image alt="Assistant face" src={AssistantImg} w="24" h="130" />
+      </Box>
+    </Draggable>
   );
 }
 

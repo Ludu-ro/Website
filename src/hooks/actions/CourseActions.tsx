@@ -1,11 +1,11 @@
 import { Course } from "../../types/Course";
 
-export enum ActionType {
+export enum CourseActionType {
   SetCourses = "SET_COURSES",
 }
 
 type SetCourses = {
-  type: ActionType.SetCourses;
+  type: CourseActionType.SetCourses;
   courses: Array<Course>;
 };
 

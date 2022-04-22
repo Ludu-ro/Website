@@ -5,15 +5,17 @@ import { App } from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { CoursesContextProvider } from "./hooks/CourseContext";
+import { CoursesContextProvider, UserContextProvider } from "./hooks";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <CoursesContextProvider>
-        <ColorModeScript />
-        <App />
-      </CoursesContextProvider>
+      <UserContextProvider>
+        <CoursesContextProvider>
+          <ColorModeScript />
+          <App />
+        </CoursesContextProvider>
+      </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
