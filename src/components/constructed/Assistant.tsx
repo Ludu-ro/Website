@@ -28,17 +28,37 @@ function Assistant({ left, right, top, bottom }: any) {
     "Logheaza-te sau inregistreaza-te pentru a putea accesa cursurile.",
   ];
   const [messageIndex, setMessageIndex] = useState(0);
+  const [messageLength, setMessageLength] = useState(0);
+
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessageIndex((messageIndex) => (messageIndex + 1) % messages.length);
-    }, 5000);
+      setMessage("");
+      setMessageIndex((messageIndex) => {
+        const newIndex = (messageIndex + 1) % messages.length;
+        setMessageLength(messages[newIndex].length);
+        return newIndex;
+      });
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    // set message with every letter
+    const interval = setInterval(() => {
+      setMessage((message) =>
+        message.length < messageLength
+          ? message + messages[messageIndex][message.length]
+          : message
+      );
+    }, 25);
+    return () => clearInterval(interval);
+  }, [messageIndex, messageLength]);
+
   return (
     <Box position="fixed" left={left} right={right} top={top} bottom={bottom}>
-      <Bubble message={messages[messageIndex]} />
+      {message && <Bubble message={message} />}
       <Image alt="Assistant face" src={AssistantImg} w="24" />
     </Box>
   );

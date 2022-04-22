@@ -3,12 +3,16 @@ import { Flex } from "@chakra-ui/react";
 import { CoursesContext } from "../../hooks/CourseContext";
 import { ActionType } from "../../hooks/actions/CourseActions";
 import { CoursesLibraryItem } from "./";
+import { getCourses } from "../../clients";
 
 function CoursesLibrary() {
   const { courses, dispatch } = useContext(CoursesContext);
 
   useEffect(() => {
-    dispatch({ type: ActionType.GetAllCourses });
+    getCourses().then((courses) => {
+      console.log(courses);
+      dispatch({ type: ActionType.SetCourses, courses });
+    });
   }, []);
 
   return (

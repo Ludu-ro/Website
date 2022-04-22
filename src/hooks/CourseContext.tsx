@@ -4,7 +4,7 @@ import { CourseActions } from "./actions/CourseActions";
 import { courseReducer } from "./reducers/CourseReducer";
 
 export type CourseMap = {
-  [tag: string]: Array<Course>; // tag to array of course dictionary
+  [tag: string]: Array<Course>; // tag to course array dictionary
 };
 
 export type CourseState = {

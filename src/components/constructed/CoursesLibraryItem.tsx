@@ -78,7 +78,7 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
         ref={ref}
       >
         {courses.map((course: Course) => (
-          <Box mr="4" display="inline-block">
+          <Box key={course.courseId} mr="4" display="inline-block">
             <CourseCard key={course.courseId} course={course} />
           </Box>
         ))}

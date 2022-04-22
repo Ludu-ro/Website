@@ -1,6 +1,7 @@
 export type Tags = "PYTHON" | "JAVA" | "AWS" | "MYSQL";
 
 export interface Course {
+  teacherId: string;
   courseId: string;
   groupId?: string;
   title: string;

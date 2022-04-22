@@ -27,7 +27,7 @@ function CourseCard({ course }: { course: Course }) {
 
         <Box display="flex" alignItems="baseline" gap="2">
           {course.tags?.map((tag) => (
-            <Badge color="font-secondary" bg="primary-dark">
+            <Badge key={tag} color="font-secondary" bg="primary-dark">
               {tag}
             </Badge>
           ))}

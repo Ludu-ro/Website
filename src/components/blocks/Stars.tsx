@@ -9,16 +9,11 @@ import React from "react";
 function Stars({ rating }: { rating: number }) {
   return (
     <Box>
-      {Array(Math.floor(rating))
-        .fill("")
-        .map(() => (
-          <FontAwesomeIcon color="#FFD505" icon={faStar} />
-        ))}
-      {Array(5 - Math.floor(rating))
-        .fill("")
-        .map(() => (
-          <FontAwesomeIcon color="gray" icon={faStar} />
-        ))}
+      <FontAwesomeIcon color={rating >= 1 ? "#FFD505" : "gray"} icon={faStar} />
+      <FontAwesomeIcon color={rating >= 2 ? "#FFD505" : "gray"} icon={faStar} />
+      <FontAwesomeIcon color={rating >= 3 ? "#FFD505" : "gray"} icon={faStar} />
+      <FontAwesomeIcon color={rating >= 4 ? "#FFD505" : "gray"} icon={faStar} />
+      <FontAwesomeIcon color={rating == 5 ? "#FFD505" : "gray"} icon={faStar} />
     </Box>
   );
 }
