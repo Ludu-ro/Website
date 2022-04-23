@@ -1,28 +1,34 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import AssistantImg from "../../assets/Assistant.png";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 
-function Bubble({ text }: { text: string }) {
+interface BubbleInterface {
+  text: string;
+  position: "left" | "right";
+}
+function Bubble({ text, position }: BubbleInterface) {
   return (
     <Box
       color="black"
       p="2"
       bg="white"
       position="absolute"
-      right="16"
+      right={position === "right" ? "16" : "unset"}
+      left={position === "left" ? "16" : "unset"}
       bottom="32"
       borderRadius="lg"
-      className="speech-bubble"
+      className={`speech-bubble-${position}`}
       w={Math.log(text.length) * 50}
       border="1px solid black"
+      zIndex={101}
     >
       <Text> {text}</Text>
     </Box>
   );
 }
 
-function Assistant({ left, right, top, bottom }: any) {
+function Assistant() {
   const messages = [
     "Bine ai venit!",
     "Cu ce te pot ajuta?",
@@ -31,6 +37,7 @@ function Assistant({ left, right, top, bottom }: any) {
   const [messageIndex, setMessageIndex] = useState(0);
   const [messageLength, setMessageLength] = useState(0);
   const [bubbleText, setBubbleText] = useState("");
+  const [position, setPosition] = useState<any>("right");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,14 +66,15 @@ function Assistant({ left, right, top, bottom }: any) {
   return (
     <Draggable>
       <Box
+        onPointerUp={(e) =>
+          setPosition(e.screenX < window.innerWidth / 2 ? "left" : "right")
+        }
         className="no-drag"
         position="fixed"
-        left={left}
-        right={right}
-        top={top}
-        bottom={bottom}
+        right={5}
+        bottom={0}
       >
-        {bubbleText && <Bubble text={bubbleText} />}
+        {bubbleText && <Bubble text={bubbleText} position={position} />}
         <Image alt="Assistant face" src={AssistantImg} w="24" h="130" />
       </Box>
     </Draggable>

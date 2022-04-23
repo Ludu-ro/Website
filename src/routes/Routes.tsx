@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import { HomeNotLogged, Login, Register } from "../components/pages";
+import { HomeNotLogged, Login, Register, Profile } from "../components/pages";
 import { UserContext } from "../hooks";
 
 function AppRoutes() {
@@ -13,6 +13,7 @@ function AppRoutes() {
         <Route path="/" element={<HomeNotLogged />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route element={<HomeNotLogged />} />
       </Routes>
     );
   }
@@ -21,8 +22,10 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomeNotLogged />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route element={<HomeNotLogged />} />
     </Routes>
   );
 }

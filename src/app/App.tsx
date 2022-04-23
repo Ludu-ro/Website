@@ -21,7 +21,7 @@ export const App = () => (
       <Topnav />
       <Routes />
       <Footer />
-      <Assistant right="5" bottom="0" />
+      <Assistant />
     </Box>
   </ChakraProvider>
 );
