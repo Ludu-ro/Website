@@ -20,7 +20,7 @@ function Register() {
       bg="primary-dark"
       color="font-secondary"
     >
-      <Text fontSize="2xl"> Inregistreaza-te </Text>
+      <Text fontSize="2xl"> Register </Text>
       <Box pt={8}>
         <FormControl variant='floating' id='form-username' isRequired>
             <Input placeholder='Username' />

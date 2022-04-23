@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { HomeNotLogged, Login, Register } from "../components/pages";
+import HomeLogged from "../components/pages/HomeLogged";
+import Profile from "../components/pages/Profile";
 import { UserContext } from "../hooks";
 
 function AppRoutes() {
@@ -20,9 +22,10 @@ function AppRoutes() {
   // logged in paths
   return (
     <Routes>
-      <Route path="/" element={<HomeNotLogged />} />
+      <Route path="/" element={<HomeLogged />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<Profile/>}/>
     </Routes>
   );
 }
