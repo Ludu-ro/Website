@@ -9,6 +9,8 @@ export const UserReducer = (
     // save user in global state
     case UserActionType.SetUser: {
       const { user } = action;
+      // save user in local storage
+      localStorage.setItem("user", JSON.stringify(user));
       return {
         ...state,
         user,

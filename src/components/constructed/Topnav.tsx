@@ -72,6 +72,15 @@ function Topnav() {
           >
             Profil
           </MenuItem>
+          <MenuItem
+            onClick={async () => {
+              localStorage.clear();
+              window.location.reload();
+            }}
+            _focus={{ background: "primary-dark" }}
+          >
+            Logout
+          </MenuItem>
         </MenuList>
       </Menu>
     </Flex>
