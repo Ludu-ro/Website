@@ -1,5 +1,6 @@
 import getCourses from "./courses/getCourses";
 
 import login from "./users/login";
+import register from "./users/register";
 
-export { getCourses, login };
+export { getCourses, login, register };

@@ -7,20 +7,21 @@ import {
   Input,
   Box,
   Button,
+  Divider,
 } from "@chakra-ui/react";
 import { UserContext, UserActionType } from "../../hooks/";
-import { ActionButton } from "../blocks";
+import { ActionButton, FormInput, InfoButton } from "../blocks";
 import { login } from "../../clients";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const user = await login({ email, password });
+    const user = await login({ username, password });
     dispatch({
       type: UserActionType.SetUser,
       user,
@@ -44,28 +45,47 @@ function Login() {
       color="font-secondary"
     >
       <Text fontSize="2xl"> Autentificare </Text>
-      <Box pt={8}>
-        <FormControl variant="floating" id="form-username" isRequired>
-          <Input
-            placeholder="Username"
-            value={email}
-            onChange={({ target: { value } }) => setEmail(value)}
-          />
-          <FormErrorMessage>Your username can not be empty</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Box>
-        <FormControl variant="floating" id="form-password" isRequired>
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={({ target: { value } }) => setPassword(value)}
-          />
-          <FormErrorMessage>Your password can not be empty</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <ActionButton onClick={handleLogin}>Autentificare</ActionButton>
+
+      <Flex
+        direction="column"
+        placeItems="center"
+        gap="2"
+        bg="secondary"
+        p="4"
+        w={["sm", "md"]}
+        borderRadius="lg"
+      >
+        <FormInput
+          label="Numele de utilizator:"
+          placeholder="Username"
+          state={username}
+          setter={setUsername}
+          error={""} //todo
+          color="font-primary"
+        />
+        <FormInput
+          label="Parola:"
+          placeholder="Parola"
+          state={password}
+          setter={setPassword}
+          error={""} //todo
+          color="font-primary"
+        />
+
+        <ActionButton width="100%" onClick={handleLogin}>
+          Autentificare
+        </ActionButton>
+
+        <Flex color="font-primary" gap="4" w="100%" alignItems="center">
+          <Divider />
+          sau
+          <Divider />
+        </Flex>
+
+        <InfoButton width="100%" onClick={() => navigate("/login")}>
+          Creaza cont
+        </InfoButton>
+      </Flex>
     </Flex>
   );
 }

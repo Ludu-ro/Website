@@ -1,15 +1,86 @@
-import React from "react";
-import { 
-  Flex, 
-  Text, 
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Box,
+  Divider,
+  Flex,
   FormControl,
-  FormErrorMessage,
+  FormHelperText,
   Input,
-  Box, 
-  Button
+  Text,
 } from "@chakra-ui/react";
+import { ActionButton, DualFormInput, FormInput, InfoButton } from "../blocks";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../clients";
+import { UserActionType, UserContext } from "../../hooks";
 
 function Register() {
+  const { user, dispatch } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<any>({});
+
+  const validate = () => {
+    const errors: any = {};
+    if (!lastName) {
+      errors.lastName = "Camp obligatoriu";
+    }
+    if (!firstName) {
+      errors.firstName = "Camp obligatoriu";
+    }
+    if (!username) {
+      errors.username = "Numele de utlizator este obligatoriu";
+    }
+    if (!email) {
+      errors.email = "Adresa de email este obligatoriu";
+    }
+    if (!password) {
+      errors.password = "Parola este obligatorie";
+    }
+    if (!confirmPassword) {
+      errors.confirmPassword = "Confirmati parola";
+    }
+    if (password && password !== confirmPassword) {
+      errors.password = "Parolele nu se potrivesc";
+      errors.confirmPassword = "Parolele nu se potrivesc";
+    }
+    return errors;
+  };
+
+  const handleRegister = async () => {
+    const errors = validate();
+    setErrors(errors);
+    // if validation did not pass return
+    if (Object.keys(errors).length > 0) return;
+
+    // todo add error banner for server
+    // todo add loading
+    const user = await register(
+      {
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+      },
+      "student"
+    );
+    dispatch({
+      type: UserActionType.SetUser,
+      user,
+    });
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    navigate("/");
+  }, [user]);
+
   return (
     <Flex
       pt="16"
@@ -20,38 +91,75 @@ function Register() {
       bg="primary-dark"
       color="font-secondary"
     >
-      <Text fontSize="2xl"> Inregistreaza-te </Text>
-      <Box pt={8}>
-        <FormControl variant='floating' id='form-username' isRequired>
-            <Input placeholder='Username' />
-            <FormErrorMessage>Your username can not be empty</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Box>
-        <FormControl variant='floating' id='form-mail' isRequired>
-            <Input placeholder='Mail' />
-            <FormErrorMessage>Your mail is invalid</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Box>
-        <FormControl variant='floating' id='form-password' isRequired>
-            <Input type='password' placeholder="Password" />
-            <FormErrorMessage>Your password can not be empty</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Box>
-        <FormControl variant='floating' id='form-repassword' isRequired>
-            <Input type='password' placeholder="Re-type password" />
-            <FormErrorMessage>Your passwords do not match</FormErrorMessage>
-        </FormControl>
-      </Box>
-      <Button
-        bg="tertiary"
-        color="font-secondary"
-        w="32"
+      <Text fontSize="2xl">Inregistreaza-te</Text>
+
+      <Flex
+        direction="column"
+        placeItems="center"
+        gap="2"
+        bg="secondary"
+        p="4"
+        w={["sm", "md"]}
+        borderRadius="lg"
       >
-      Register
-      </Button>
+        <DualFormInput
+          label="Numele tau complet:"
+          placeholder={["Nume de familie", "Prenume"]}
+          state={[lastName, firstName]}
+          setter={[setLastName, setFirstName]}
+          error={[errors.lastName, errors.firstName]}
+          color="font-primary"
+        />
+        <FormInput
+          placeholder="Username"
+          label="Nume de utilizator:"
+          state={username}
+          setter={setUsername}
+          error={errors.username}
+          color="font-primary"
+        />
+        <FormInput
+          placeholder="Email"
+          label="Adresa ta de email:"
+          state={email}
+          setter={setEmail}
+          error={errors.email}
+          color="font-primary"
+        />
+        <FormInput
+          placeholder="Parola"
+          label="Parola:"
+          state={password}
+          setter={setPassword}
+          error={errors.password}
+          type={"password"}
+          color="font-primary"
+        />
+        <FormInput
+          placeholder="Rescrie parola"
+          label="Confirma parola:"
+          state={confirmPassword}
+          setter={setConfirmPassword}
+          error={errors.confirmPassword}
+          type={"password"}
+          color="font-primary"
+        />
+        <Box />
+
+        <ActionButton width="100%" onClick={handleRegister}>
+          Inregistreaza-te
+        </ActionButton>
+
+        <Flex color="font-primary" gap="4" w="100%" alignItems="center">
+          <Divider />
+          sau
+          <Divider />
+        </Flex>
+
+        <InfoButton width="100%" onClick={() => navigate("/login")}>
+          Autentificare
+        </InfoButton>
+      </Flex>
     </Flex>
   );
 }

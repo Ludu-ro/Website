@@ -75,7 +75,7 @@ function Assistant() {
         bottom={0}
       >
         {bubbleText && <Bubble text={bubbleText} position={position} />}
-        <Image alt="Assistant face" src={AssistantImg} w="24" h="130" />
+        <Image alt="Assistant face" src={AssistantImg} w="24" />
       </Box>
     </Draggable>
   );

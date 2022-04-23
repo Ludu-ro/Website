@@ -13,7 +13,6 @@ function AppRoutes() {
         <Route path="/" element={<HomeNotLogged />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<HomeNotLogged />} />
       </Routes>
     );
   }
@@ -25,7 +24,6 @@ function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route element={<HomeNotLogged />} />
     </Routes>
   );
 }
