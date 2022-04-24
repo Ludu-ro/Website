@@ -5,7 +5,8 @@ import { App } from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { CoursesContextProvider, UserContextProvider, CourseDetailsContextProvider } from "./hooks";
+import { CourseDetailsContextProvider, CoursesContextProvider, UserContextProvider } from "./hooks";
+import { AssistantContextProvider } from "./components/constructed/assistant/AssistantContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,10 @@ ReactDOM.render(
           <ColorModeScript />
           <App />
           </CourseDetailsContextProvider>
+          <AssistantContextProvider>
+            <ColorModeScript />
+            <App />
+          </AssistantContextProvider>
         </CoursesContextProvider>
       </UserContextProvider>
     </BrowserRouter>

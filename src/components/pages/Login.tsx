@@ -82,7 +82,7 @@ function Login() {
           <Divider />
         </Flex>
 
-        <InfoButton width="100%" onClick={() => navigate("/login")}>
+        <InfoButton width="100%" onClick={() => navigate("/register")}>
           Creaza cont
         </InfoButton>
       </Flex>

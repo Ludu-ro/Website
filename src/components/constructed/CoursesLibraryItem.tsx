@@ -1,8 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import { Box, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { CourseCard } from "../composite";
 import { Course } from "../../types/Course";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faCaretLeft,
+  faCaretRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface CoursesLibraryItemInterface {
@@ -18,10 +23,6 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
     ref.current.scrollLeft += scrollOffset;
   };
 
-  useEffect(() => {
-    scroll(200);
-  }, [ref]);
-
   return (
     <Box position="relative">
       {/* Tag */}
@@ -35,42 +36,44 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
         {tag}
       </Box>
 
-      {/* Left arrow */}
-      <IconButton
-        aria-label="left-arrow"
-        bg="black"
-        opacity="0.1"
-        _hover={{
-          opacity: "0.25",
-        }}
-        icon={<FontAwesomeIcon icon={faArrowLeft} />}
-        onClick={() => scroll(-200)}
-        position="absolute"
-        left="0"
-        h="92%"
-        w="32"
-      />
+      <Box display={["none", "block"]}>
+        {/* Left arrow */}
+        <IconButton
+          aria-label="left-arrow"
+          bg="black"
+          opacity="0.1"
+          _hover={{
+            opacity: "0.25",
+          }}
+          icon={<FontAwesomeIcon icon={faCaretLeft} />}
+          onClick={() => scroll(-400)}
+          position="absolute"
+          left="0"
+          h="92%"
+          w="32"
+        />
 
-      {/* Right arrow */}
-      <IconButton
-        aria-label="right-arrow"
-        bg="black"
-        opacity="0.1"
-        _hover={{
-          opacity: "0.25",
-        }}
-        icon={<FontAwesomeIcon icon={faArrowRight} />}
-        onClick={() => scroll(200)}
-        position="absolute"
-        right="0"
-        h="92%"
-        w="32"
-      />
+        {/* Right arrow */}
+        <IconButton
+          aria-label="right-arrow"
+          bg="black"
+          opacity="0.1"
+          _hover={{
+            opacity: "0.25",
+          }}
+          icon={<FontAwesomeIcon icon={faCaretRight} />}
+          onClick={() => scroll(400)}
+          position="absolute"
+          right="0"
+          h="92%"
+          w="32"
+        />
+      </Box>
 
       {/* Courses */}
       <Box
         w="100vw"
-        pl={["0", "10"]}
+        pl={["1", "10"]}
         overflowX="scroll"
         scrollBehavior="smooth"
         overflowY="hidden"
@@ -83,6 +86,30 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
           </Box>
         ))}
       </Box>
+
+      <Flex
+        p="2"
+        mt="2"
+        justifyContent="space-between"
+        display={["flex", "none"]}
+      >
+        <IconButton
+          aria-label="left-arrow"
+          bg="tertiary"
+          color="font-primary"
+          icon={<FontAwesomeIcon icon={faArrowLeft} />}
+          onClick={() => scroll(-400)}
+          w="30%"
+        />
+        <IconButton
+          aria-label="right-arrow"
+          bg="tertiary"
+          color="font-primary"
+          icon={<FontAwesomeIcon icon={faArrowRight} />}
+          onClick={() => scroll(400)}
+          w="30%"
+        />
+      </Flex>
     </Box>
   );
 }

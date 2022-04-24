@@ -1,4 +1,4 @@
-import Assistant from "./Assistant";
+import Assistant from "./assistant/Assistant";
 import CourseDetails from "./CourseDetails";
 import CoursesLibrary from "./CoursesLibrary";
 import CoursesLibraryItem from "./CoursesLibraryItem";
