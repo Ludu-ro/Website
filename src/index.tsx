@@ -14,13 +14,11 @@ ReactDOM.render(
       <UserContextProvider>
         <CoursesContextProvider>
           <CourseDetailsContextProvider>
-          <ColorModeScript />
-          <App />
-          </CourseDetailsContextProvider>
           <AssistantContextProvider>
-            <ColorModeScript />
-            <App />
+          <ColorModeScript />
+          <App />  
           </AssistantContextProvider>
+        </CourseDetailsContextProvider>
         </CoursesContextProvider>
       </UserContextProvider>
     </BrowserRouter>
