@@ -4,7 +4,7 @@ import { CourseDetailsContext, CourseDetailsActionType } from "../../hooks";
 import { getCourse } from "../../clients";
 
 import { Course } from "../../types";
-import { CourseBasicDetailsCard, CourseDescriptionCard } from "../infoCard";
+import { CourseBasicDetailsCard, CourseDescriptionCard } from "../course";
 
 interface CourseIdInterface {
     courseId: string|undefined
@@ -16,7 +16,7 @@ function CourseDetails({courseId}: CourseIdInterface) {
 
   useEffect(() => {
 
-    getCourse(courseId).then((course) => {
+    getCourse(courseId).then((course: any) => {
 
       dispatch({ type: CourseDetailsActionType.SetCourseDetails, courseDetails: course });
     });
@@ -25,7 +25,7 @@ function CourseDetails({courseId}: CourseIdInterface) {
 
   if(!isLoading){
     return (
-        <Flex alignItems="flex-start" direction="row" gap="10" w="100%" h ="100%" justifyContent="space-evenly">
+        <Flex alignItems="flex-start" direction="row" gap="10" w="100%" justifyContent="space-evenly">
             
             <CourseBasicDetailsCard course={courseDetails as Course}/>
             <CourseDescriptionCard course={courseDetails as Course}/>

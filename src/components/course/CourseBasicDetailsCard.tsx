@@ -2,7 +2,6 @@ import { Badge, Box, Text, Image, Icon } from "@chakra-ui/react";
 import { Course } from "../../types/Course";
 import { CourseDetailsLine, Stars } from "../blocks";
 import { useNavigate } from "react-router-dom";
-import { CourseDetails } from "../constructed";
 import { BiTime } from 'react-icons/bi'
 import {IoMdPeople} from 'react-icons/io'
 import {GiPapers} from 'react-icons/gi'
