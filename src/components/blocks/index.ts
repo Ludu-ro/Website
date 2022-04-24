@@ -1,4 +1,5 @@
 import ActionButton from "./ActionButton";
+import CourseDetailsLine from "./CourseDetailsLine";
 import DualFormInput from "./DualFormInput";
 import FormInput from "./FormInput";
 import InfoButton from "./InfoButton";
@@ -12,4 +13,5 @@ export {
   InfoButton,
   OnlinePlayers,
   Stars,
+  CourseDetailsLine
 };

@@ -1,11 +1,15 @@
-import React from "react";
 import { Badge, Box, Text, Image } from "@chakra-ui/react";
 import { Course } from "../../types/Course";
 import { Stars } from "../blocks";
+import { useNavigate } from "react-router-dom";
 
 function CourseCard({ course }: { course: Course }) {
+
+  const navigate = useNavigate();
+  const courseId = course.courseId;
+
   return (
-    <Box bg="secondary" color="font-primary" cursor="pointer" w="sm">
+    <Box onClick={() => navigate('/course/'+courseId)} bg="secondary" color="font-primary" cursor="pointer" w="sm">
       <Image
         w="100%"
         h="40"

@@ -6,7 +6,13 @@ import { UserContext, UserContextProvider } from "./UserContext";
 import { UserActionType, UserActions } from "./actions//UserActions";
 import { UserReducer } from "./reducers/UserReducer";
 
+import { CourseDetailsContext, CourseDetailsContextProvider } from "./CourseDetailsContext";
+import { CourseDetailsActionType, CourseDetailsActions } from "./actions/CourseDetailsActions";
+import { CourseDetailsReducer } from "./reducers/CourseDetailsReducer";
+
 import { useSocket } from "./useSocket";
+
+
 
 export {
   // courses context
@@ -19,7 +25,12 @@ export {
   UserContextProvider,
   UserActionType,
   UserReducer,
+  //courseDetails
+  CourseDetailsContext,
+  CourseDetailsContextProvider,
+  CourseDetailsActionType,
+  CourseDetailsReducer,
   // socket
   useSocket,
 };
-export type { CourseActions, UserActions };
+export type { CourseActions, UserActions, CourseDetailsActions };
