@@ -27,7 +27,7 @@ const UserContext = createContext<UserContextInterface>({
 });
 
 const UserContextProvider = ({ children }: { children: ReactNode }) => {
-  const [usertate, dispatch] = useReducer(UserReducer, {
+  const [userState, dispatch] = useReducer(UserReducer, {
     user: null,
     isLoading: true,
   });
@@ -44,7 +44,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ ...usertate, dispatch }}>
+    <UserContext.Provider value={{ ...userState, dispatch }}>
       {children}
     </UserContext.Provider>
   );

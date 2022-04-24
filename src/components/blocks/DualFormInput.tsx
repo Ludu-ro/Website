@@ -33,7 +33,6 @@ function DualFormInput({
     <FormControl
       width={width}
       variant="floating"
-      id="form-mail"
       isInvalid={!!error[0] || !!error[1]}
     >
       <FormHelperText mb="1" color={color}>

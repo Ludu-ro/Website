@@ -6,14 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { CoursesContextProvider, UserContextProvider } from "./hooks";
+import { AssistantContextProvider } from "./components/constructed/assistant/AssistantContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextProvider>
         <CoursesContextProvider>
-          <ColorModeScript />
-          <App />
+          <AssistantContextProvider>
+            <ColorModeScript />
+            <App />
+          </AssistantContextProvider>
         </CoursesContextProvider>
       </UserContextProvider>
     </BrowserRouter>

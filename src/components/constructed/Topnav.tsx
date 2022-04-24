@@ -4,6 +4,7 @@ import {
   Flex,
   Icon,
   IconButton,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -17,7 +18,42 @@ import { Link, useNavigate } from "react-router-dom";
 import { OnlinePlayers } from "../blocks";
 import { UserContext } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPerson, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { AssistantContext } from "./assistant/AssistantContext";
+import Moustache from "../../assets/Moustache.png";
+
+function AssistantIcon() {
+  const { messages, setIsClosed, isClosed } = useContext(AssistantContext);
+
+  if (!isClosed) {
+    return <React.Fragment />;
+  }
+
+  return (
+    <Box position="relative">
+      <Flex
+        borderRadius="100%"
+        w="4"
+        h="4"
+        bg="tertiary"
+        zIndex="1"
+        left="0"
+        top="0"
+        position="absolute"
+        alignItems="center"
+        justifyContent="center"
+      >
+        {messages.length}
+      </Flex>
+      <IconButton
+        aria-label="assistant button"
+        bg="primary-dark"
+        icon={<Image w="8" src={Moustache} />}
+        onClick={() => setIsClosed(false)}
+      />
+    </Box>
+  );
+}
 
 function Topnav() {
   const navigate = useNavigate();
@@ -26,10 +62,17 @@ function Topnav() {
   // not logged in
   if (!user) {
     return (
-      <Flex color="font-secondary" bg="primary" p="4" alignItems="center">
+      <Flex
+        gap="4"
+        color="font-secondary"
+        bg="primary"
+        p="4"
+        alignItems="center"
+      >
         <Text ml="2" flex="1" fontSize="xl" fontWeight="bold">
           <Link to="/">Ludu Academy </Link>
         </Text>
+        <AssistantIcon />
         <OnlinePlayers />
       </Flex>
     );
@@ -57,6 +100,8 @@ function Topnav() {
         <OnlinePlayers />
       </Box>
 
+      <AssistantIcon />
+
       {/* Profile */}
       <Menu>
         <MenuButton
@@ -79,7 +124,7 @@ function Topnav() {
             }}
             _focus={{ background: "primary-dark" }}
           >
-            Logout
+            Iesi din cont
           </MenuItem>
         </MenuList>
       </Menu>

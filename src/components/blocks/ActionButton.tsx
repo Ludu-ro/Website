@@ -12,7 +12,7 @@ function ActionButton({ children, onClick, width }: ActionButtonInterface) {
     <Button
       onClick={() => onClick()}
       bg="tertiary"
-      color="font-secondary"
+      color="font-primary"
       w={width || "32"}
     >
       {children}

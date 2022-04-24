@@ -28,12 +28,7 @@ function FormInput({
   color,
 }: FormInputInterface) {
   return (
-    <FormControl
-      width={width}
-      variant="floating"
-      id="form-mail"
-      isInvalid={!!error}
-    >
+    <FormControl width={width} variant="floating" isInvalid={!!error}>
       <FormHelperText mb="1" color={color}>
         {label}
       </FormHelperText>
