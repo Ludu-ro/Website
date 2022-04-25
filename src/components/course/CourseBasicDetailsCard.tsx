@@ -17,7 +17,7 @@ function CourseBasicDetailsCard({ course }: CourseDetailsInterface) {
 
   return (
     <Box  boxShadow='dark-lg' p='6' rounded='md' bg='white' 
-    gap="10"  color="font-primary" cursor="pointer" w="15%" alignSelf="flex-start" alignContent="flex-start">
+    gap="10"  color="font-primary" cursor="pointer"  alignSelf="flex-start" alignContent="flex-start">
 
         <Box
           mt="1"
@@ -29,13 +29,10 @@ function CourseBasicDetailsCard({ course }: CourseDetailsInterface) {
           Detalii Curs
         </Box>
 
-        <Box display="flex" gap="2" alignItems="center">
+        <Box  display="flex" alignItems="center" justifyContent="space-around" rowGap="3">
           <Stars rating={course.rating || 1} />
           {course.reviews} reviews
           <Box flex="1" />
-          <Badge p="1" bg="tertiary">
-            {course.xpValue} xp
-          </Badge>
         </Box>
         
         <CourseDetailsLine icon={<Icon alignSelf="center" color="primary-dark" w={7} h={7} as={BiTime}/>} value={course.duration} field={"Durata cursului:  "}></CourseDetailsLine>
@@ -44,6 +41,10 @@ function CourseBasicDetailsCard({ course }: CourseDetailsInterface) {
 
         <CourseDetailsLine icon={<Icon alignSelf="center" color="primary-dark" w={7} h={7} as={GiPapers}/>} value={course.modules.length} field={" Numar de module:"}></CourseDetailsLine>
       
+        <Badge marginTop = "5" p="1" bg="tertiary">
+            {course.xpValue} xp
+          </Badge>
+          
     </Box>
   );
 }
