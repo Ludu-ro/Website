@@ -11,7 +11,8 @@ function InfoButton({ children, onClick, width }: InfoButtonInterface) {
   return (
     <Button
       onClick={() => onClick()}
-      colorScheme="blackAlpha"
+      bg="gray.200"
+      color="font-primary"
       w={width || "32"}
     >
       {children}

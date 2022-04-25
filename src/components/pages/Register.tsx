@@ -1,11 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Image,
-  Flex,
-  Text,
-  Divider,
-  Box,
-} from "@chakra-ui/react";
+import { Image, Flex, Text, Divider, Box } from "@chakra-ui/react";
 import { ActionButton, DualFormInput, FormInput, InfoButton } from "../blocks";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../clients";
@@ -82,111 +76,94 @@ function Register() {
 
   return (
     <Flex
-    bg="primary-dark"
-    flexDirection="row-reverse"
-    p="3"
-    justifyContent="center"
-    >
-      <Flex
-      w="max-content"
-      placeItems="flex-start"
-      flexDirection="column"
+      bg="primary-dark"
+      justifyContent="center"
+      direction={["column-reverse", "row-reverse"]}
       alignItems="center"
-      flex-direction= "column-reverse"
     >
-
-    <Image
-        w="90%"
-        h="500"
-        src={RegisterImg}
-        alt="login"
-      />
-
-    </Flex>
-
-    <Flex
-      pt="10"
-      alignSelf="center"
-      p="5"
-      boxShadow='xs' 
-      rounded='md'
-      placeItems="center"
-      direction="column"
-      alignItems="center"
-      bg="white"
-      color="font-secondary"
-      mixBlendMode="hard-light"
-    >
-     <Text textColor="primary-dark" fontSize="2xl"> Autentificare </Text>
+      <Box w="50%">
+        <Image src={RegisterImg} alt="login" />
+      </Box>
 
       <Flex
-        direction="column"
+        p="5"
+        rounded="md"
         placeItems="center"
-        gap="2"
-        bg="secondary"
-        p="2"
-        w={["sm", "md"]}
-        borderRadius="lg"
+        direction="column"
+        bg="white"
+        color="font-secondary"
       >
-        <DualFormInput
-          label="Numele tau complet:"
-          placeholder={["Nume de familie", "Prenume"]}
-          state={[lastName, firstName]}
-          setter={[setLastName, setFirstName]}
-          error={[errors.lastName, errors.firstName]}
-          color="font-primary"
-        />
-        <FormInput
-          placeholder="Username"
-          label="Nume de utilizator:"
-          state={username}
-          setter={setUsername}
-          error={errors.username}
-          color="font-primary"
-        />
-        <FormInput
-          placeholder="Email"
-          label="Adresa ta de email:"
-          state={email}
-          setter={setEmail}
-          error={errors.email}
-          color="font-primary"
-        />
-        <FormInput
-          placeholder="Parola"
-          label="Parola:"
-          state={password}
-          setter={setPassword}
-          error={errors.password}
-          type={"password"}
-          color="font-primary"
-        />
-        <FormInput
-          placeholder="Rescrie parola"
-          label="Confirma parola:"
-          state={confirmPassword}
-          setter={setConfirmPassword}
-          error={errors.confirmPassword}
-          type={"password"}
-          color="font-primary"
-        />
-        <Box />
+        <Text textColor="primary-dark" fontSize="2xl">
+          Creaza un cont
+        </Text>
 
-        <ActionButton width="100%" onClick={handleRegister}>
-          Inregistreaza-te
-        </ActionButton>
+        <Flex
+          direction="column"
+          placeItems="center"
+          gap="2"
+          bg="secondary"
+          p="2"
+          borderRadius="lg"
+        >
+          <DualFormInput
+            label="Numele tau complet:"
+            placeholder={["Nume de familie", "Prenume"]}
+            state={[lastName, firstName]}
+            setter={[setLastName, setFirstName]}
+            error={[errors.lastName, errors.firstName]}
+            color="font-primary"
+          />
+          <FormInput
+            placeholder="Username"
+            label="Nume de utilizator:"
+            state={username}
+            setter={setUsername}
+            error={errors.username}
+            color="font-primary"
+          />
+          <FormInput
+            placeholder="Email"
+            label="Adresa ta de email:"
+            state={email}
+            setter={setEmail}
+            error={errors.email}
+            color="font-primary"
+          />
+          <FormInput
+            placeholder="Parola"
+            label="Parola:"
+            state={password}
+            setter={setPassword}
+            error={errors.password}
+            type={"password"}
+            color="font-primary"
+          />
+          <FormInput
+            placeholder="Rescrie parola"
+            label="Confirma parola:"
+            state={confirmPassword}
+            setter={setConfirmPassword}
+            error={errors.confirmPassword}
+            type={"password"}
+            color="font-primary"
+          />
+          <Box />
 
-        <Flex color="font-primary" gap="4" w="100%" alignItems="center">
-          <Divider />
-          sau
-          <Divider />
+          <ActionButton width="100%" onClick={handleRegister}>
+            Inregistreaza-te
+          </ActionButton>
+
+          <Flex color="font-primary" gap="4" w="100%" alignItems="center">
+            <Divider />
+            sau
+            <Divider />
+          </Flex>
+
+          <InfoButton width="100%" onClick={() => navigate("/login")}>
+            Am deja cont
+          </InfoButton>
         </Flex>
-
-        <InfoButton width="100%" onClick={() => navigate("/login")}>
-          Autentificare
-        </InfoButton>
       </Flex>
-    </Flex>
     </Flex>
   );
 }
