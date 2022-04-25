@@ -35,9 +35,10 @@ function FormCheckbox({
           textAlign="center"
           w="24"
           p="2"
-          _hover={{ background: state === valueLeft ? "black" : "gray" }}
-          bg={state === valueLeft ? "primary" : "white"}
-          color={state === valueLeft ? "font-secondary" : "font-primary"}
+          _hover={{ opacity: 0.8 }}
+          fontWeight={state === valueLeft ? "bold" : "normal"}
+          bg={state === valueLeft ? "tertiary" : "gray.200"}
+          color="font-primary"
           borderRadius="md"
           onClick={() => setter(valueLeft)}
         >
@@ -48,9 +49,10 @@ function FormCheckbox({
           textAlign="center"
           w="24"
           p="2"
-          _hover={{ background: state === valueRight ? "black" : "gray" }}
-          bg={state === valueRight ? "primary" : "white"}
-          color={state === valueRight ? "font-secondary" : "font-primary"}
+          _hover={{ opacity: 0.8 }}
+          fontWeight={state === valueRight ? "bold" : "normal"}
+          bg={state === valueRight ? "tertiary" : "gray.200"}
+          color="font-primary"
           borderRadius="md"
           onClick={() => setter(valueRight)}
         >
