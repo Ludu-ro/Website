@@ -5,7 +5,7 @@ import { App } from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { CoursesContextProvider, UserContextProvider } from "./hooks";
+import { CourseDetailsContextProvider, CoursesContextProvider, UserContextProvider } from "./hooks";
 import { AssistantContextProvider } from "./components/constructed/assistant/AssistantContext";
 
 ReactDOM.render(
@@ -13,10 +13,12 @@ ReactDOM.render(
     <BrowserRouter>
       <UserContextProvider>
         <CoursesContextProvider>
+          <CourseDetailsContextProvider>
           <AssistantContextProvider>
-            <ColorModeScript />
-            <App />
+          <ColorModeScript />
+          <App />  
           </AssistantContextProvider>
+        </CourseDetailsContextProvider>
         </CoursesContextProvider>
       </UserContextProvider>
     </BrowserRouter>

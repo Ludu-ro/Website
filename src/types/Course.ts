@@ -1,3 +1,5 @@
+import { Module } from "./Module";
+
 export type Tags = "PYTHON" | "JAVA" | "AWS" | "MYSQL";
 
 export interface Course {
@@ -7,17 +9,13 @@ export interface Course {
   title: string;
   description: string;
   xpValue: number;
-  homeworkId?: string;
-  quizId?: string;
-  slides?: {
-    slidesId: string;
-    slidesPath: string;
-    slidesFileName: string;
-  };
   tags?: Array<Tags>;
 
   // TODO
   image: string;
   rating: number;
   reviews: number;
+  numberOfAttendees: number;
+  duration: number;
+  modules: Array<Module>
 }

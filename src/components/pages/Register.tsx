@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Box,
-  Divider,
+  Image,
   Flex,
-  FormControl,
-  FormHelperText,
-  Input,
   Text,
+  Divider,
+  Box,
 } from "@chakra-ui/react";
 import { ActionButton, DualFormInput, FormInput, InfoButton } from "../blocks";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../clients";
 import { UserActionType, UserContext } from "../../hooks";
+import RegisterImg from "../../assets/register.png";
 
 function Register() {
   const { user, dispatch } = useContext(UserContext);
@@ -83,22 +82,49 @@ function Register() {
 
   return (
     <Flex
-      pt="16"
-      gap="4"
+    bg="primary-dark"
+    flexDirection="row-reverse"
+    p="3"
+    justifyContent="center"
+    >
+      <Flex
+      w="max-content"
+      placeItems="flex-start"
+      flexDirection="column"
+      alignItems="center"
+      flex-direction= "column-reverse"
+    >
+
+    <Image
+        w="90%"
+        h="500"
+        src={RegisterImg}
+        alt="login"
+      />
+
+    </Flex>
+
+    <Flex
+      pt="10"
+      alignSelf="center"
+      p="5"
+      boxShadow='xs' 
+      rounded='md'
       placeItems="center"
       direction="column"
       alignItems="center"
-      bg="primary-dark"
+      bg="white"
       color="font-secondary"
+      mixBlendMode="hard-light"
     >
-      <Text fontSize="2xl">Inregistreaza-te</Text>
+     <Text textColor="primary-dark" fontSize="2xl"> Autentificare </Text>
 
       <Flex
         direction="column"
         placeItems="center"
         gap="2"
         bg="secondary"
-        p="4"
+        p="2"
         w={["sm", "md"]}
         borderRadius="lg"
       >
@@ -160,6 +186,7 @@ function Register() {
           Autentificare
         </InfoButton>
       </Flex>
+    </Flex>
     </Flex>
   );
 }

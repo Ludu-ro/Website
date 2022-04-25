@@ -21,6 +21,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AssistantContext } from "./assistant/AssistantContext";
 import Moustache from "../../assets/Moustache.png";
+import {CgProfile} from 'react-icons/cg'
+import {BiLogOut} from 'react-icons/bi'
 
 function AssistantIcon() {
   const { messages, setIsClosed, isClosed } = useContext(AssistantContext);
@@ -112,9 +114,15 @@ function Topnav() {
         />
         <MenuList bg="primary">
           <MenuItem
+            justifyContent="start"
+            alignContent="flex-start"
+            flexDirection="row"
             onClick={() => navigate("/profile")}
             _focus={{ background: "primary-dark" }}
+            borderBottomColor="white"
+            borderBottomWidth="1px"
           >
+            <Icon marginRight="2" as={CgProfile}></Icon>
             Profil
           </MenuItem>
           <MenuItem
@@ -124,6 +132,7 @@ function Topnav() {
             }}
             _focus={{ background: "primary-dark" }}
           >
+            <Icon marginRight="2" as={BiLogOut}></Icon>
             Iesi din cont
           </MenuItem>
         </MenuList>
