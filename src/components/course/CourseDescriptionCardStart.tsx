@@ -1,8 +1,10 @@
-import { Badge, Box, Text, Image, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Icon } from "@chakra-ui/react";
+import { Badge, Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Icon, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, ModalBody, ModalFooter } from "@chakra-ui/react";
+import { useContext } from "react";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../hooks";
 import { Course } from "../../types/Course";
-import { ActionButton, InfoButton, Stars } from "../blocks";
+import { ActionButton, LoginBox } from "../blocks";
 import CourseDescription from "./CourseDescription";
 
 
@@ -10,9 +12,24 @@ interface CourseDetailsInterface {
     course: Course;
   }
 
+
+
 function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
 
   const navigate = useNavigate();
+
+  const { user, dispatch } = useContext(UserContext);
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  function handleStartCourse() {
+    
+    if(!user){
+
+       onOpen()
+    }
+
+  }
   
   return (
     <Box>
@@ -37,12 +54,33 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
     </Accordion>
 
     <Box alignItems="center" w="100%" justifyItems="center" textAlign="center">
-      <ActionButton width="sm" onClick={() => navigate("/login")}>
+      <ActionButton width="sm" onClick={handleStartCourse}>
         Incepe
       </ActionButton>
     </Box>
+
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+          
+          <LoginBox></LoginBox>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='red' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+        
+    </Modal>
+
     </Box>
   );
 }
 
 export default CourseDescriptionCardOnProgress;
+
+
