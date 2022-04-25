@@ -30,8 +30,8 @@ function Messenger({ showMessenger, setShowMessenger }: any) {
         right="10"
         w="64"
         bg="white"
-        border="2px solid"
-        borderColor="primary-dark"
+        border="1px solid"
+        borderColor="white"
       >
         <Flex
           cursor="pointer"
@@ -50,7 +50,13 @@ function Messenger({ showMessenger, setShowMessenger }: any) {
             onClick={() => setIsClosed(true)}
           />
         </Flex>
-        <Box p="2" h="72" overflow="auto">
+        <Box
+          p="2"
+          h="72"
+          overflow="auto"
+          border="2px solid"
+          borderColor="primary-dark"
+        >
           <MessagesList />
         </Box>
       </Box>

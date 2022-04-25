@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../../clients";
 import { UserActionType, UserContext } from "../../hooks";
 import RegisterImg from "../../assets/register.png";
+import FormCheckbox from "../blocks/FormCheckbox";
 
 function Register() {
   const { user, dispatch } = useContext(UserContext);
@@ -16,6 +17,7 @@ function Register() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [type, setType] = useState<"student" | "teacher">("student");
   const [errors, setErrors] = useState<any>({});
 
   const validate = () => {
@@ -61,7 +63,7 @@ function Register() {
         lastName,
         email,
       },
-      "student"
+      type
     );
     dispatch({
       type: UserActionType.SetUser,
@@ -147,6 +149,17 @@ function Register() {
             type={"password"}
             color="font-primary"
           />
+          <FormCheckbox
+            label="Vreau sa:"
+            state={type}
+            setter={setType}
+            color="font-primary"
+            valueLeft="student"
+            labelLeft="Invat"
+            valueRight="teacher"
+            labelRight="Predau"
+          />
+
           <Box />
 
           <ActionButton width="100%" onClick={handleRegister}>
