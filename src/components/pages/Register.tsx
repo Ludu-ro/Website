@@ -86,7 +86,6 @@ function Register() {
     flexDirection="row-reverse"
     p="3"
     justifyContent="center"
-    alignContent="center"
     >
       <Flex
       w="max-content"
@@ -98,7 +97,7 @@ function Register() {
 
     <Image
         w="90%"
-        h="90%"
+        h="500"
         src={RegisterImg}
         alt="login"
       />

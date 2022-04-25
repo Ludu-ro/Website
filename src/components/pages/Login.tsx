@@ -107,7 +107,8 @@ function Login() {
 
     <Image
         w="90%"
-        h="90%"
+        h="600"
+        
         src={LoginImg}
         alt="login"
       />
