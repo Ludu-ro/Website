@@ -72,7 +72,7 @@ function CoursesLibraryItem({ tag, courses }: CoursesLibraryItemInterface) {
 
       {/* Courses */}
       <Box
-        w="100vw"
+        w="98vw"
         pl={["1", "10"]}
         overflowX="scroll"
         scrollBehavior="smooth"

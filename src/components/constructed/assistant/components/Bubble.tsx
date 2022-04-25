@@ -17,9 +17,9 @@ function Bubble({ text, position }: BubbleInterface) {
       p="2"
       bg="white"
       position="absolute"
-      right={position === "right" ? "16" : "unset"}
-      left={position === "left" ? "16" : "unset"}
-      bottom="32"
+      right={position === "right" ? "8" : "unset"}
+      left={position === "left" ? "8" : "unset"}
+      bottom="20"
       borderRadius="lg"
       className={`speech-bubble-${position}`}
       w={Math.log(text.length) * 50}

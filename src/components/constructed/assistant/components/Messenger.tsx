@@ -9,54 +9,74 @@ import {
   ModalContent,
   Image,
   ModalHeader,
+  Text,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
+import MessagesList from "./MessagesList";
 import { AssistantContext } from "../AssistantContext";
-import AssistantImg from "../../../../assets/Assistant.png";
-
-function Message({ text }: any) {
-  return (
-    <Flex alignItems="flex-start" mb="4">
-      <Image alt="assistant icon" src={AssistantImg} w="10" mr="4" />
-      <Box
-        className="message"
-        p="2"
-        color="font-secondary"
-        bg="primary"
-        borderRadius="lg"
-        w="100"
-      >
-        {text}
-      </Box>
-    </Flex>
-  );
-}
 
 function Messenger({ showMessenger, setShowMessenger }: any) {
-  const { archiveMessages } = useContext(AssistantContext);
-  const close = () => setShowMessenger(false);
+  const closeMessenger = () => setShowMessenger(false);
+  const { setIsClosed } = useContext(AssistantContext);
 
+  // non-mobile version
+  if (window.innerWidth >= 768) {
+    return (
+      <Box
+        position="fixed"
+        bottom="0"
+        display={showMessenger ? "block" : "none"}
+        right="10"
+        w="64"
+        bg="white"
+        border="2px solid"
+        borderColor="primary-dark"
+      >
+        <Flex
+          cursor="pointer"
+          alignItems="center"
+          p="2"
+          bg="primary-dark"
+          color="font-secondary"
+          onClick={closeMessenger}
+        >
+          <Text flex="1">Mesaje asistent</Text>
+          <IconButton
+            aria-label="close messenger button"
+            bg="transparent"
+            size="sm"
+            icon={<FontAwesomeIcon icon={faTimes} />}
+            onClick={() => setIsClosed(true)}
+          />
+        </Flex>
+        <Box p="2" h="72" overflow="auto">
+          <MessagesList />
+        </Box>
+      </Box>
+    );
+  }
+
+  // mobile version
   return (
-    <Modal size="full" isOpen={showMessenger} onClose={close}>
+    <Modal size="full" isOpen={showMessenger} onClose={closeMessenger}>
       <ModalContent>
         {/* Header */}
         <ModalHeader>
           <Flex gap="4" alignItems="center">
             <IconButton
-              aria-label="assistant button"
+              aria-label="close messenger button"
               icon={<FontAwesomeIcon icon={faArrowLeft} />}
-              onClick={close}
+              onClick={closeMessenger}
             />
             <Box> Mesaje asistent</Box>
           </Flex>
         </ModalHeader>
         <ModalCloseButton />
 
+        {/* Messages */}
         <ModalBody>
-          {archiveMessages.map((message, idx) => (
-            <Message text={message} key={"message-" + idx} />
-          ))}
+          <MessagesList />
         </ModalBody>
       </ModalContent>
     </Modal>

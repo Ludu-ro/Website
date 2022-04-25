@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Box, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import AssistantImg from "../../../assets/Assistant.png";
 import Draggable, { DraggableData } from "react-draggable";
 import useBubbleText from "./hooks/useBubbleText";
@@ -69,9 +69,12 @@ function Assistant() {
           right={5}
           bottom={0}
           opacity={canClose ? 0.5 : 1}
+          _hover={{ opacity: 0.9 }}
+          cursor="pointer"
+          display={showMessenger ? "none" : "block"}
         >
           <Bubble text={bubbleText} position={position} />
-          <Image alt="Assistant face" src={AssistantImg} w="24" />
+          <Image alt="Assistant face" src={AssistantImg} w="16" />
         </Box>
       </Draggable>
 

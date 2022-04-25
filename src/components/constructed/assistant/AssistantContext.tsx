@@ -23,8 +23,12 @@ const mockMessages = [
 ];
 
 const AssistantContextProvider = ({ children }: { children: ReactNode }) => {
-  const [archiveMessages, setArchiveMessages] =
-    useState<Array<string>>(mockMessages);
+  const [archiveMessages, setArchiveMessages] = useState<Array<string>>([
+    ...mockMessages,
+    ...mockMessages,
+    ...mockMessages,
+    ...mockMessages,
+  ]);
   const [messages, setMessages] = useState<Array<string>>(mockMessages);
   const [isClosed, setIsClosed] = useState<boolean>(false);
 
