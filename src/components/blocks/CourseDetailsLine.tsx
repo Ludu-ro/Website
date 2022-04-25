@@ -16,7 +16,7 @@ function CourseDetailsLine({ value, field, icon }: CourseDetailsLineInterface) {
     paddingTop="5"
 
     alignItems="baseline"
-    justifyContent="space-around"
+    justifyContent="space-between"
     flexDirection="row"
     alignContent="flex-start"
     >

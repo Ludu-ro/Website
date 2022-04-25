@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
+  Image,
   Flex,
   Text,
-  FormControl,
-  FormErrorMessage,
-  Input,
-  Box,
-  Button,
   Divider,
+  Box,
 } from "@chakra-ui/react";
 import { UserContext, UserActionType } from "../../hooks/";
 import { ActionButton, FormInput, InfoButton } from "../blocks";
 import { login } from "../../clients";
 import { useNavigate } from "react-router-dom";
+import LoginImg from "../../assets/login.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -35,16 +33,27 @@ function Login() {
   }, [user]);
 
   return (
+
+    <Flex
+    bg="primary-dark"
+    flexDirection="row-reverse"
+    p="5"
+    justifyContent="center"
+    >
     <Flex
       pt="16"
-      gap="4"
+      alignSelf="center"
+      p="10"
+      boxShadow='xs' rounded='md'
+      justifyContent="space-evenly"
       placeItems="center"
       direction="column"
       alignItems="center"
-      bg="primary-dark"
+      bg="white"
       color="font-secondary"
+      mixBlendMode="hard-light"
     >
-      <Text fontSize="2xl"> Autentificare </Text>
+      <Text textColor="primary-dark" fontSize="2xl"> Autentificare </Text>
 
       <Flex
         direction="column"
@@ -86,6 +95,25 @@ function Login() {
           Creaza cont
         </InfoButton>
       </Flex>
+    </Flex>
+
+
+    <Flex
+      w="max-content"
+      placeItems="flex-start"
+      direction="column"
+      alignItems="center"
+    >
+
+    <Image
+        w="90%"
+        h="90%"
+        src={LoginImg}
+        alt="login"
+      />
+
+    </Flex>
+
     </Flex>
   );
 }

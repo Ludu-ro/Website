@@ -38,7 +38,7 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
 
     <Box alignItems="center" w="100%" justifyItems="center" textAlign="center">
       <ActionButton width="sm" onClick={() => navigate("/login")}>
-        Incepe Cursul
+        Incepe
       </ActionButton>
     </Box>
     </Box>
