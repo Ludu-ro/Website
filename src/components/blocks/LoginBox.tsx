@@ -7,7 +7,11 @@ import ActionButton from "./ActionButton";
 import FormInput from "./FormInput";
 import InfoButton from "./InfoButton";
 
-function LoginBox() {
+interface CloseFunction {
+  closeMethod: () => void
+}
+
+function LoginBox({ closeMethod = () => {} }: CloseFunction) {
   
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
@@ -24,7 +28,7 @@ function LoginBox() {
 
   useEffect(() => {
     if (!user) return;
-    navigate("/");
+    closeMethod();
   }, [user]);
   
     return (

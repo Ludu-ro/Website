@@ -1,4 +1,4 @@
-import { Badge, Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Icon, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, ModalBody, ModalFooter } from "@chakra-ui/react";
+import { Image, Badge, Box, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Icon, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Button, ModalBody, ModalFooter } from "@chakra-ui/react";
 import { useContext } from "react";
 import { RiFilePaper2Fill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { UserContext } from "../../hooks";
 import { Course } from "../../types/Course";
 import { ActionButton, LoginBox } from "../blocks";
 import CourseDescription from "./CourseDescription";
+import CongratsImage from '../../assets/congratulation.png'
 
 
 interface CourseDetailsInterface {
@@ -20,15 +21,19 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
 
   const { user, dispatch } = useContext(UserContext);
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen: loginIsOpen, onOpen: loginonOpen, onClose: loginOnClose } = useDisclosure()
+  const { isOpen: congratsIsOpen, onOpen: congratsOnOpen, onClose: congratsOnClose } = useDisclosure()
 
   function handleStartCourse() {
     
     if(!user){
 
-       onOpen()
+       loginonOpen()
     }
+    else{
 
+      congratsOnOpen()
+    }
   }
   
   return (
@@ -59,17 +64,69 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
       </ActionButton>
     </Box>
 
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={loginIsOpen} onClose={loginOnClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
           
-          <LoginBox></LoginBox>
+          <LoginBox closeMethod = {loginOnClose}></LoginBox>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='red' mr={3} onClick={onClose}>
+            <Button colorScheme='red' mr={3} onClick={loginOnClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+        
+    </Modal>
+
+    <Modal isOpen={loginIsOpen} onClose={loginOnClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+          
+          <LoginBox closeMethod = {loginOnClose}></LoginBox>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='red' mr={3} onClick={loginOnClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+        
+    </Modal>
+    
+    <Modal isOpen={congratsIsOpen} onClose={congratsOnClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody alignSelf="center">
+
+          <Image marginInline="auto" src={CongratsImage} w='220' h='220'></Image>
+
+          <Box
+          mt="1"
+          fontWeight="semibold"
+          as="h1"
+          fontSize="x-large"
+          lineHeight="tight"
+          textAlign="center"
+          isTruncated
+          textColor="primary-dark"
+          
+        >
+          Esti gata sa incepi aventura?
+        </Box>
+          </ModalBody>
+          <ModalFooter>
+          <Button colorScheme='teal' mr={3} onClick={congratsOnClose}>
+              Sa incepem
+            </Button>
+            <Button colorScheme='red' mr={3} onClick={congratsOnClose}>
               Close
             </Button>
           </ModalFooter>
