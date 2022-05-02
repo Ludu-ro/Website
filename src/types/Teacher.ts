@@ -6,4 +6,7 @@ export interface Teacher {
   email: string;
   courses?: Array<string>;
   groups?: Array<string>;
+  role: string;
+
+  jwtToken: string;
 }

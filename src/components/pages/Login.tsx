@@ -1,23 +1,66 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Flex, Text, Divider, Box } from "@chakra-ui/react";
+import { Image, Flex, Text, Divider, Box, Spinner } from "@chakra-ui/react";
 import { UserContext, UserActionType } from "../../hooks/";
 import { ActionButton, FormInput, InfoButton } from "../blocks";
 import { login } from "../../clients";
 import { useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/login.png";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { User } from "../../types";
 
 function Login() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const validate = () => {
+    const errors: any = {};
+    if (!username) {
+      errors.username = "Camp obligatoriu";
+    }
+    if (!password) {
+      errors.password = "Parola este obligatorie";
+    }
+    return errors;
+  };
 
   const handleLogin = async () => {
-    const user = await login({ username, password });
-    dispatch({
-      type: UserActionType.SetUser,
-      user,
-    });
+    const errors = validate();
+    setErrors(errors);
+    // if validation did not pass return
+    if (Object.keys(errors).length > 0) return;
+
+    try {
+      // get token from login
+      setIsLoading(true);
+      const jwtToken = await login({ username, password });
+      localStorage.setItem("jwt", jwtToken);
+
+      // decode information
+      const jwtTokenDecoded: any = jwt_decode(jwtToken);
+      const user: User = {
+        firstName: jwtTokenDecoded["nameid"],
+        lastName: jwtTokenDecoded["family_name"],
+        role: jwtTokenDecoded["role"],
+        jwtToken: jwtToken,
+      };
+
+      // save information into state context
+      dispatch({
+        type: UserActionType.SetUser,
+        user,
+      });
+    } catch (error) {
+      setErrors({
+        username: "Numele de utilizator sau parola sunt gresite",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // redirect on successful login
@@ -59,12 +102,14 @@ function Login() {
           borderRadius="lg"
           w="100%"
         >
+          {isLoading && <Spinner color="tertiary" />}
+
           <FormInput
             label="Numele de utilizator:"
             placeholder="Username"
             state={username}
             setter={setUsername}
-            error={""} //todo
+            error={errors.username}
             color="font-primary"
           />
           <FormInput
@@ -72,14 +117,16 @@ function Login() {
             placeholder="Parola"
             state={password}
             setter={setPassword}
-            error={""} //todo
+            error={errors.password}
             color="font-primary"
+            type="password"
           />
 
           <Box />
 
           <ActionButton width="100%" onClick={handleLogin}>
             Autentificare
+            {isLoading && <Spinner ml="4" color="secondary" size="sm" />}
           </ActionButton>
 
           <Flex color="font-primary" gap="4" w="100%" alignItems="center">

@@ -1,15 +1,17 @@
-import { User } from "../../types";
+import axios from "axios";
 import { Login } from "../../types/request";
 
-async function login(request: Login): Promise<User> {
-  //todo: integrate with backend
-  return {
-    id: "1",
-    username: "cosmin0123",
-    firstName: "cosmin",
-    lastName: "aftnase",
-    email: "cosmin.aftanase@yahoo.com",
-  };
+async function login(request: Login): Promise<string> {
+  const { data } = await axios.post<{ token: string }>(
+    `/api/login`,
+    {
+      ...request,
+    },
+    {
+      withCredentials: false,
+    }
+  );
+  return data.token;
 }
 
 export default login;

@@ -7,4 +7,7 @@ export interface Student {
   xp?: number;
   level?: number;
   groups?: Array<string>;
+  role: string;
+
+  jwtToken: string;
 }
