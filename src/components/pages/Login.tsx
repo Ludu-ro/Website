@@ -6,7 +6,6 @@ import { login } from "../../clients";
 import { useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/login.png";
 import jwt_decode from "jwt-decode";
-import axios from "axios";
 import { User } from "../../types";
 
 function Login() {

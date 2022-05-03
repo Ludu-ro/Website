@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+  Badge,
   Box,
   Flex,
   Icon,
@@ -18,14 +19,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { OnlinePlayers } from "../blocks";
 import { UserContext } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCoins, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AssistantContext } from "./assistant/AssistantContext";
 import Moustache from "../../assets/Moustache.png";
-import {CgProfile} from 'react-icons/cg'
-import {BiLogOut} from 'react-icons/bi'
+import { CgProfile } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi";
+import { Student } from "../../types";
 
 function AssistantIcon() {
   const { messages, setIsClosed, isClosed } = useContext(AssistantContext);
+  const { user } = useContext(UserContext);
 
   if (!isClosed) {
     return <React.Fragment />;
@@ -101,6 +104,25 @@ function Topnav() {
       <Box display={["none", "block"]}>
         <OnlinePlayers />
       </Box>
+
+      <Flex direction="column" gap="1">
+        {/* Gold */}
+        {user.role == "student" && (
+          <Badge color="secondary" bg="primary-dark" borderRadius="lg">
+            {(user as Student).xp || 0}
+            <Icon ml="2">
+              <FontAwesomeIcon icon={faCoins} />
+            </Icon>
+          </Badge>
+        )}
+
+        {/* Xp */}
+        {user.role == "student" && (
+          <Badge color="secondary" bg="primary-dark" borderRadius="lg">
+            {(user as Student).xp || 0} xp
+          </Badge>
+        )}
+      </Flex>
 
       <AssistantIcon />
 

@@ -12,7 +12,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faMinus,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import MessagesList from "./MessagesList";
 import { AssistantContext } from "../AssistantContext";
 
@@ -42,6 +46,13 @@ function Messenger({ showMessenger, setShowMessenger }: any) {
           onClick={closeMessenger}
         >
           <Text flex="1">Mesaje asistent</Text>
+          <IconButton
+            aria-label="minimize messenger button"
+            bg="transparent"
+            size="sm"
+            icon={<FontAwesomeIcon icon={faMinus} />}
+            onClick={() => setShowMessenger(false)}
+          />
           <IconButton
             aria-label="close messenger button"
             bg="transparent"
