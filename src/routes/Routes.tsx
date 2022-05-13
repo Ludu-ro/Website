@@ -7,6 +7,7 @@ import {
   Profile,
   Course,
 } from "../components/pages";
+import CourseCreate from "../components/pages/CourseCreate";
 import HomeLogged from "../components/pages/HomeLogged";
 import { UserContext } from "../hooks";
 
@@ -34,6 +35,7 @@ function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/course/:id" element={<Course />} />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/addCourse" element={<CourseCreate/>} />
     </Routes>
   );
 }
