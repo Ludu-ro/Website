@@ -1,14 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Image, Flex, Text, Divider, Box } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Image,
+  Flex,
+  Text,
+  Divider,
+  Box,
+  Modal,
+  Spinner,
+} from "@chakra-ui/react";
 import { ActionButton, DualFormInput, FormInput, InfoButton } from "../blocks";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../clients";
-import { UserActionType, UserContext } from "../../hooks";
 import RegisterImg from "../../assets/register.png";
 import FormCheckbox from "../blocks/FormCheckbox";
 
 function Register() {
-  const { user, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -19,6 +25,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [type, setType] = useState<"student" | "teacher">("student");
   const [errors, setErrors] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const validate = () => {
     const errors: any = {};
@@ -53,28 +60,28 @@ function Register() {
     // if validation did not pass return
     if (Object.keys(errors).length > 0) return;
 
-    // todo add error banner for server
-    // todo add loading
-    const user = await register(
-      {
-        username,
-        password,
-        firstName,
-        lastName,
-        email,
-      },
-      type
-    );
-    dispatch({
-      type: UserActionType.SetUser,
-      user,
-    });
+    try {
+      await register(
+        {
+          username,
+          password,
+          firstName,
+          lastName,
+          email,
+        },
+        type
+      );
+      setIsLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 100000));
+      navigate("/login");
+    } catch (e: any) {
+      const errors: any = {};
+      errors.username = e.response.data;
+      setErrors(errors);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  useEffect(() => {
-    if (!user) return;
-    navigate("/");
-  }, [user]);
 
   return (
     <Flex
@@ -86,7 +93,6 @@ function Register() {
       <Box w="50%">
         <Image src={RegisterImg} alt="login" />
       </Box>
-
       <Flex
         p="5"
         rounded="md"
@@ -107,6 +113,7 @@ function Register() {
           p="2"
           borderRadius="lg"
         >
+          {isLoading && <Spinner color="tertiary" />}
           <DualFormInput
             label="Numele tau complet:"
             placeholder={["Nume de familie", "Prenume"]}
@@ -164,6 +171,7 @@ function Register() {
 
           <ActionButton width="100%" onClick={handleRegister}>
             Inregistreaza-te
+            {isLoading && <Spinner ml="4" color="secondary" size="sm" />}
           </ActionButton>
 
           <Flex color="font-primary" gap="4" w="100%" alignItems="center">
