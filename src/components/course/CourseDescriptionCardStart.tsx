@@ -124,9 +124,6 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
         </Box>
           </ModalBody>
           <ModalFooter>
-          <Button colorScheme='red' mr={3} onClick={congratsOnClose}>
-              Close
-            </Button>
           <Button rightIcon={<ArrowForwardIcon />} colorScheme='teal' mr={3} onClick={congratsOnClose}>
               Sa incepem
             </Button>
