@@ -9,7 +9,12 @@ import InfoButton from "./InfoButton";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
 
-function LoginBox() {
+interface CloseFunction {
+  closeMethod: () => void
+}
+
+function LoginBox({ closeMethod = () => {} }: CloseFunction) {
+  
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
@@ -65,7 +70,7 @@ function LoginBox() {
 
   useEffect(() => {
     if (!user) return;
-    navigate("/");
+    closeMethod();
   }, [user]);
 
   return (
