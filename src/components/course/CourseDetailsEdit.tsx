@@ -10,7 +10,7 @@ interface CourseDetailsInterface {
     course: Course;
   }
 
-function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
+function CourseDetailsEdit({ course }: CourseDetailsInterface) {
 
   const navigate = useNavigate();
   
@@ -57,4 +57,4 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
   );
 }
 
-export default CourseDescriptionCardOnProgress;
+export default CourseDetailsEdit;

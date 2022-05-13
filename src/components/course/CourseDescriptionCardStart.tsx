@@ -7,6 +7,7 @@ import { Course } from "../../types/Course";
 import { ActionButton, LoginBox } from "../blocks";
 import CourseDescription from "./CourseDescription";
 import CongratsImage from '../../assets/congratulation.png'
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 
 interface CourseDetailsInterface {
@@ -123,11 +124,11 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
         </Box>
           </ModalBody>
           <ModalFooter>
-          <Button colorScheme='teal' mr={3} onClick={congratsOnClose}>
-              Sa incepem
-            </Button>
-            <Button colorScheme='red' mr={3} onClick={congratsOnClose}>
+          <Button colorScheme='red' mr={3} onClick={congratsOnClose}>
               Close
+            </Button>
+          <Button rightIcon={<ArrowForwardIcon />} colorScheme='teal' mr={3} onClick={congratsOnClose}>
+              Sa incepem
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -75,7 +75,7 @@ function Topnav() {
           <Link to="/">Ludu Academy </Link>
         </Text>
         <AssistantIcon />
-        <OnlinePlayers />
+        {/* <OnlinePlayers /> */}
       </Flex>
     );
   }
@@ -98,6 +98,10 @@ function Topnav() {
       </InputGroup>
 
       {/* Online players */}
+      {/* <Box display={["none", "block"]}>
+        <OnlinePlayers />
+      </Box> */}
+
       <Box display={["none", "block"]}>
         <OnlinePlayers />
       </Box>
