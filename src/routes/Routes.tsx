@@ -7,6 +7,7 @@ import {
   Profile,
   Course,
 } from "../components/pages";
+import HomeLogged from "../components/pages/HomeLogged";
 import { UserContext } from "../hooks";
 
 function AppRoutes() {
@@ -29,7 +30,7 @@ function AppRoutes() {
   // logged in paths
   return (
     <Routes>
-      <Route path="/" element={<HomeNotLogged />} />
+      <Route path="/" element={<HomeLogged />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/course/:id" element={<Course />} />
       <Route path="*" element={<Navigate to="/" />} />
