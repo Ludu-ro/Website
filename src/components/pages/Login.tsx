@@ -42,6 +42,7 @@ function Login() {
       // decode information
       const jwtTokenDecoded: any = jwt_decode(jwtToken);
       const user: User = {
+        id: jwtTokenDecoded["unique_name"],
         firstName: jwtTokenDecoded["nameid"],
         lastName: jwtTokenDecoded["family_name"],
         role: jwtTokenDecoded["role"],
