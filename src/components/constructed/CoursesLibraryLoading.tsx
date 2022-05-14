@@ -8,10 +8,10 @@ import { CourseCardLoading } from "../composite";
 function CoursesLibraryLoading() {
   return (
     <Flex alignItems="flex-start" direction="column" gap="8">
-      {[1, 2, 3].map((idx) => (
+      {[1, 2].map((idx) => (
         <Box
           w="100vw"
-          pl={["0", "10"]}
+          pl={["0", "5"]}
           overflowX="scroll"
           scrollBehavior="smooth"
           overflowY="hidden"
@@ -20,7 +20,7 @@ function CoursesLibraryLoading() {
         >
           <Box mb="2" h="6" w="10%" className="loading-color" />
 
-          {Array(20)
+          {Array(4)
             .fill("")
             .map((_, idx) => (
               <Box key={"loading-course-" + idx} mr="4" display="inline-block">

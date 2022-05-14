@@ -6,7 +6,7 @@ export interface Teacher {
   email: string;
   courses?: Array<string>;
   groups?: Array<string>;
-  role: string;
+  role: "student" | "teacher";
 
   jwtToken: string;
 }
