@@ -28,16 +28,33 @@ function AppRoutes() {
     );
   }
 
-  // logged in paths
-  return (
-    <Routes>
-      <Route path="/" element={<HomeLogged />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/course/:id" element={<Course />} />
-      <Route path="*" element={<Navigate to="/" />} />
-      <Route path="/addCourse" element={<CourseCreate/>} />
-    </Routes>
-  );
+  else{
+
+      if(user.role === 'student'){
+        
+        return (
+          <Routes>
+            <Route path="/" element={<HomeLogged />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/course/:id" element={<Course />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        );
+      }
+      else{
+
+        return (
+          <Routes>
+            <Route path="/" element={<HomeLogged />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/course/:id" element={<Course />} />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/addCourse" element={<CourseCreate/>} />
+          </Routes>
+        );
+
+      }
+  }
 }
 
 export default AppRoutes;
