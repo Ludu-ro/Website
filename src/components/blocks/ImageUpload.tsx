@@ -10,6 +10,8 @@ import {
     Text
   } from "@chakra-ui/react";
   import { motion, useAnimation } from "framer-motion";
+import { ChangeEvent } from "react";
+import uploadFile from "../../clients/courses/uploadFile";
   
   const first = {
     rest: {
@@ -111,6 +113,18 @@ function ImageUpload() {
     const startAnimation = () => controls.start("hover");
     const stopAnimation = () => controls.stop();
     
+    const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+      
+        if(e.target.files){
+
+            const files = e.target.files
+            const fileUrl = await uploadFile( files[0]);
+            console.log(fileUrl)
+        }
+        
+       
+      };
+
     return (
       <Container p="3" maxWidth="none">
       
@@ -188,6 +202,7 @@ function ImageUpload() {
                 accept="image/*"
                 onDragEnter={startAnimation}
                 onDragLeave={stopAnimation}
+                onChange = {e => handleFileUpload(e)}
               />
               
             </Box>
@@ -198,3 +213,5 @@ function ImageUpload() {
   }
 
   export default ImageUpload;
+
+

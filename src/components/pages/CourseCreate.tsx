@@ -11,13 +11,16 @@ import {
     NumberIncrementStepper,
     NumberInputStepper,
     NumberDecrementStepper,
+    FormErrorMessage,
   } from "@chakra-ui/react";
 
   import {
     Select,
     OptionBase,
-    GroupBase
+    GroupBase,
+    MultiValue
   } from "chakra-react-select";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ActionButton } from "../blocks";
 import ImageUpload from "../blocks/ImageUpload";
@@ -28,7 +31,7 @@ import ImageUpload from "../blocks/ImageUpload";
     value: string;
   }
 
-  const tags = [
+  const tagsValues = [
     { value: "PYTHON", label: "PYTHON" },
     { value: "JAVA", label: "JAVA" },
     { value: "AWS", label: "AWS" },
@@ -38,13 +41,83 @@ import ImageUpload from "../blocks/ImageUpload";
   export const tagsOptions = [
     {
       label: "Tags",
-      options: tags
+      options: tagsValues
     }
   ];
+
   
   function CourseCreate() {
 
     const navigate = useNavigate();
+    
+    const parse = (val: string) => val.replace(/^\$/, '')
+        
+    function addTags(e: MultiValue<TagsOption>): void {
+        
+        const tagsList = e.map(val => val.value)
+        setTags(tagsList);
+    }
+
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [xp, setXp] = useState("");
+    const [tags, setTags] = useState<string[]>([]);
+    const [duration, setDuration] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+
+    const [errors, setErrors] = useState<any>({});
+
+
+    const validate = () => {
+        const errors: any = {};
+        if (!title) {
+          errors.title = "Camp obligatoriu";
+        }
+
+        if(!description){
+
+            errors.description = "Camp obligatotiu";
+        }
+
+        if(!xp){
+
+            errors.Xp = "Camp obligatotiu";
+        }
+        
+        if(tags.length == 0){
+
+            errors.tags = "Seteaza macar un tag"
+        }
+
+        if(!duration){
+
+            errors.duration = "Camp obligatoriu";
+        }
+
+        if(!difficulty){
+
+            errors.difficulty = "Camp obligatoriu";
+        }
+
+        return errors;
+      };
+    
+    
+      const handleCreateCourse = async () => {
+        const errors = validate();
+        setErrors(errors);
+
+        if (Object.keys(errors).length > 0) return;
+        
+        console.log(title);
+        console.log(description);
+        console.log(xp);
+        console.log(tags);
+        console.log(duration);
+        console.log(difficulty);
+      };
+    
   
     return (
         <Flex
@@ -70,66 +143,90 @@ import ImageUpload from "../blocks/ImageUpload";
         >
           Adauga un curs nou
         </Box>
-          
-        <FormControl isRequired>
-            <FormLabel textColor="primary-dark"  htmlFor='title'>Titlu</FormLabel>
-            <Input id='title' type='title' />
+        
+
+        <FormControl isRequired isInvalid={!!errors.title}>
+            <FormLabel textColor="primary-dark"  htmlFor='title' >Titlu</FormLabel>
+            <Input    
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              />  
+            <FormErrorMessage>{errors.title}</FormErrorMessage>
             <FormHelperText>Introdu un titlu atractiv</FormHelperText>
         </FormControl>
 
-        <FormControl isRequired>
+
+        <FormControl isRequired isInvalid={!!errors.description}>
             <FormLabel textColor="primary-dark" htmlFor='description'>Descriere</FormLabel>
-            <Input id='description' type='description' />
+            <Input 
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                id='description'
+                type='description' />
+            
+            <FormErrorMessage>{errors.description}</FormErrorMessage>
             <FormHelperText>O descriere cat mai interesanta poate aduce mai multi cursanti</FormHelperText>
         </FormControl>
 
-        <FormControl isRequired>
+
+        <FormControl isRequired isInvalid={!!errors.Xp}>
         <FormLabel textColor="primary-dark" htmlFor='xp'>XP Curs</FormLabel>
-        <NumberInput max={50} min={0}>
-            <NumberInputField id='xp' />
-            <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-            </NumberInputStepper>
-        </NumberInput>
+            <NumberInput  
+                value={xp}
+                onChange={(e) => setXp(parse(e))}
+                max={50} 
+                min={0}>
+                <NumberInputField id='xp' />
+                <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+                </NumberInputStepper>
+            </NumberInput>
+            <FormErrorMessage>{errors.Xp}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isRequired>
+
+        <FormControl isRequired isInvalid={!!errors.tags}>
             <FormLabel htmlFor='tags' textColor="primary-dark">
                 Selecteaza tag-urile asociate cursului
             </FormLabel>
-            <Select<TagsOption, true, GroupBase<TagsOption>> id="tags"
-                isMulti
-                name="colors"
-                options={tags}     
-                colorScheme="purple"
-                placeholder="Selecteaza un tag..."
-                closeMenuOnSelect={false}
-            />
-              <FormHelperText>Selecteaza cele mai relevante tag-uri pentru cursul tau</FormHelperText>
+                <Select<TagsOption, true, GroupBase<TagsOption>> id="tags"
+                    isMulti
+                    name="colors"
+                    options={tagsValues}     
+                    colorScheme="purple"
+                    placeholder="Selecteaza un tag..."       
+                    onChange={e => addTags(e)}  
+                    closeMenuOnSelect={false}
+                />
+            <FormErrorMessage>{errors.tags}</FormErrorMessage>
+            <FormHelperText>Selecteaza cele mai relevante tag-uri pentru cursul tau</FormHelperText>
         </FormControl>
 
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={!!errors.duration}>
         <FormLabel textColor="primary-dark" htmlFor='hours'>Durata cursului in ore</FormLabel>
-        <NumberInput max={1000} min={0}>
+        <NumberInput 
+                onChange={(e) => setDuration(parse(e))} max={1000} min={0}>
             <NumberInputField id='hours' />
             <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
             </NumberInputStepper>
         </NumberInput>
+        <FormErrorMessage>{errors.duration}</FormErrorMessage>
         <FormHelperText>Gandeste-te la durata medie de parcurgere a cursului</FormHelperText>
         </FormControl>
 
 
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={!!errors.difficulty}>
             <FormLabel textColor="primary-dark" htmlFor='difficulty'>Difficulty</FormLabel>
-            <SelectBasic id='difficulty' placeholder='Selecteaza dificultatea'>
+            <SelectBasic value={difficulty} onChange={(e) => setDifficulty(e.target.value)} id='difficulty' placeholder='Selecteaza dificultatea'>
                 <option>EASY</option>
                 <option>MEDIUM</option>
                 <option>HARD</option>
             </SelectBasic>
         <FormHelperText>Alegand dificultate poti ajuta viitorii cursanti sa decida daca acesta e cursul potrivit pentru ei</FormHelperText>
+        <FormErrorMessage>{errors.difficulty}</FormErrorMessage>
         </FormControl>
 
         <FormControl isRequired>
@@ -139,7 +236,7 @@ import ImageUpload from "../blocks/ImageUpload";
         </FormControl>
 
         <Box p="10" display="grid">
-        <ActionButton width="50" onClick={() => navigate("/addCourse")}> Continua crearea cursului</ActionButton>
+        <ActionButton width="50" onClick={handleCreateCourse}> Continua crearea cursului</ActionButton>
         </Box>
         
         </Box> 
@@ -150,5 +247,4 @@ import ImageUpload from "../blocks/ImageUpload";
 
   
 export default CourseCreate;
-
   
