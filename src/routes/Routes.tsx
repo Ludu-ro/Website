@@ -31,7 +31,7 @@ function AppRoutes() {
   // logged in paths
   return (
     <Routes>
-      <Route path="/" element={<HomeNotLogged />} />
+      <Route path="/" element={<HomeLogged />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/course/:id" element={<Course />} />
       <Route path="/course/:courseId/module" element={<Module />} />

@@ -22,7 +22,7 @@ function HomeLogged() {
         >
         {/* Title */}
         <Text color="font-secondary" fontSize="3xl" mt="5%">
-            Bine ai venit!
+            Bine ai venit Teacher!
         </Text>
 
         <Flex gap="4">

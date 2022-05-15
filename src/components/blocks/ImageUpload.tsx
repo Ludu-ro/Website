@@ -10,7 +10,7 @@ import {
     Text
   } from "@chakra-ui/react";
   import { motion, useAnimation } from "framer-motion";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import uploadFile from "../../clients/courses/uploadFile";
   
   const first = {
@@ -120,6 +120,7 @@ function ImageUpload( {module, values, text}  : InputMultiPart) {
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
     const stopAnimation = () => controls.stop();
+    const [imageName, setImageName] = useState("");
     
     const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
       
@@ -127,15 +128,36 @@ function ImageUpload( {module, values, text}  : InputMultiPart) {
           
             const files = e.target.files
             const fileUrl = await uploadFile( files[0]);
-            values.image = fileUrl
+
+            if(!module){
+              values.image = fileUrl
+              setImageName(getResource)
+            }
+            else{
+
+              module.resources = fileUrl
+              setImageName(getResource)
+            }
         }
-        
+      
        
       };
 
+    const getResource = () =>{
+     
+      if(module) { 
+        
+        return module.resources.substring(module.resources.lastIndexOf('/') + 1) 
+      }
+      else{
+
+        return values.image.substring(values.image.lastIndexOf('/') + 1) 
+      }
+    }
+
     return (
       <Container p="3" maxWidth="none">
-      
+         <Text>Resursa incarcata: { imageName}</Text>
         <AspectRatio width="64" ratio={1}>
        
           <Box
@@ -212,7 +234,7 @@ function ImageUpload( {module, values, text}  : InputMultiPart) {
                 onDragLeave={stopAnimation}
                 onChange = {e => handleFileUpload(e)}
               />
-              
+
             </Box>
           </Box>
         </AspectRatio>

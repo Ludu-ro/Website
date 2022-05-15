@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { ModuleResolutionKind } from "typescript";
 import { Course, Module } from "../../types";
+import { CourseInput } from "../../types/CourseInput";
 
 import CourseCreateBasicDetails from "./CourseCreateBasicDetails";
 import ModuleCreate from "./ModuleCreate";
@@ -11,18 +12,14 @@ function CourseCreate(){
     const [step, setstep] = useState(1);
     
 
-    const [formData, setFormData] = useState<Course>({
+    const [courseInput, setFormData] = useState<CourseInput>({
         teacherId: "",
-        courseId: "",
         title: "",
         description: "",
         duration: 0,
         difficulty: 0,
         tags: [],
         xpValue: 0,
-        rating: 0,
-        numberOfAttendees: 0,
-        reviews: 0,
         image: "",
         modules : []
     })
@@ -37,8 +34,6 @@ function CourseCreate(){
     };
 
     const handleInputData = (input: any, ...args: string[]) => (e: any) => {
-
-        console.log("Original Form")
 
         if(input === "xp" || input === "duration"){
 
@@ -74,9 +69,7 @@ function CourseCreate(){
 
 const handleAddModuleData = (input: any, ...args: Module[]) => (e: any) => {
 
-        const value = formData.modules.push(args[0])
-        console.log(value)
-        console.log(args)
+        const value = courseInput.modules.push(args[0])
 
         setFormData(prevState => ({
         ...prevState,
@@ -85,20 +78,20 @@ const handleAddModuleData = (input: any, ...args: Module[]) => (e: any) => {
 
     switch (step) {
         
-        case 2:
+        case 1:
         return (
                 <CourseCreateBasicDetails
                     nextStep={nextStep}
                     handleFormData={handleInputData} 
-                    values={formData} />
+                    values={courseInput} />
         );
-        case 1:
+        case 2:
         return (
             <ModuleCreate
                     nextStep={nextStep}
                     prevStep={prevStep}
                     handleFormData={handleAddModuleData} 
-                    values={formData} />
+                    values={courseInput} />
         );
         default:
         return (

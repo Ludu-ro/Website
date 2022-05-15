@@ -228,7 +228,7 @@ import ImageUpload from "../blocks/ImageUpload";
                         handleFormData={handleFormData}
                         values = {values}
                 />
-            <FormLabel textColor="primary-dark" htmlFor='photo'>Imagine incarcata: {values.image.substring(values.image.lastIndexOf('/') + 1)}</FormLabel>
+           
             <FormErrorMessage>{errors.image}</FormErrorMessage>
         </FormControl>
 

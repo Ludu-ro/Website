@@ -1,11 +1,9 @@
 import { Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
 import { useState } from "react";
-import { Module } from "../../types";
-import AcceptButton from "./AcceptButton";
-import ActionButton from "./ActionButton";
+import { ModuleInput } from "../../types/ModuleInput";
 import ImageUpload from "./ImageUpload";
 
-interface ModuleInput {
+interface ModulePageInput {
 
     index: number,
     handleRemoveModule: any
@@ -13,7 +11,7 @@ interface ModuleInput {
     values: any
 }
 
-function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: ModuleInput){
+function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: ModulePageInput){
 
     const [errors, setErrors] = useState<any>({});
 
@@ -21,6 +19,11 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
     const [description, setDescription] = useState("");
     const [xp, setXp] = useState(0) 
     const [isFormEnabled, setisFormEnabled] = useState(false);
+    const module: ModuleInput = {
+        title: "",
+        description: "",
+        xpValue: 0
+    }
 
     const validate = () => {
         const errors: any = {};
@@ -49,16 +52,11 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
         
         else{
             
-            const module : Module = {
-                title: title,
-                description: description,
-                xp: xp,
-                moduleId: "",
-                homeworkId: "",
-                quizId: ""
-            }
+            module.title = title
+            module.description = description
+            module.xpValue = xp
 
-            
+            console.log(module)
             values.modules.push(module)
             setisFormEnabled(true)
         }
@@ -121,7 +119,7 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
             <FormErrorMessage>{errors.Xp}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isRequired isInvalid={!!errors.image}>
+        <FormControl isInvalid={!!errors.image}>
             <FormLabel textColor="primary-dark" htmlFor='photo'>Incarca resursa necesare acestui curs</FormLabel>
                 <ImageUpload 
                         text={"Adauga o resursa"}

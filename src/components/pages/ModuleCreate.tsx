@@ -5,6 +5,7 @@ import {
   } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
+import createCourse from "../../clients/courses/createCourse";
 import { AcceptButton, ActionButton } from "../blocks";
 import ModuleBlock from "../blocks/ModuleBlock";
 
@@ -36,6 +37,12 @@ import ModuleBlock from "../blocks/ModuleBlock";
     const clearModule = () => {
         setIndexes([]);
       };
+
+    const handleCreateCourse = async () => {
+
+      console.log(values)
+      const course = await createCourse(values);
+    }
 
     return (
         <Flex
@@ -78,7 +85,7 @@ import ModuleBlock from "../blocks/ModuleBlock";
 
         <Flex p="10" justifyContent="space-around">
             <ActionButton width="50" onClick={prevStep}> Revino la pagina anterioara</ActionButton>
-            <ActionButton width="50" onClick={nextStep}> Continua crearea cursului</ActionButton>
+            <ActionButton width="50" onClick={handleCreateCourse}> Finalizeaza crearea cursului</ActionButton>
         </Flex>
         
         </Box> 
