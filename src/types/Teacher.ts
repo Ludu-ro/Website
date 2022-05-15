@@ -4,7 +4,7 @@ export interface Teacher {
   firstName: string;
   lastName: string;
   email: string;
-  courses?: Array<string>;
+  courses?: Array<any>;
   groups?: Array<string>;
   role: "student" | "teacher";
 

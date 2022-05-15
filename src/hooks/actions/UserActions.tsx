@@ -6,7 +6,7 @@ export enum UserActionType {
 
 type SetActions = {
   type: UserActionType.SetUser;
-  user: User;
+  user: User | null;
 };
 
 export type UserActions = SetActions;

@@ -33,14 +33,14 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
 
     if (userData) {
       const user: User = JSON.parse(userData);
-
+      
       // TODO: remove this later
       // small fix because we didn't save the user id last time
       if (user.id === undefined) {
         localStorage.removeItem("user");
         return;
       }
-
+      
       dispatch({
         type: UserActionType.SetUser,
         user: user,

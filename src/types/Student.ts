@@ -1,3 +1,5 @@
+import { ModuleStatus } from ".";
+
 export interface Student {
   id: string;
   username: string;
@@ -7,6 +9,7 @@ export interface Student {
   xp?: number;
   level?: number;
   groups?: Array<string>;
+  courses?: Array<ModuleStatus>;
   role: "student" | "teacher";
 
   jwtToken: string;
