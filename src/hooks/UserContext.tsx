@@ -30,17 +30,8 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   // load user from local storage
   useEffect(() => {
     const userData = localStorage.getItem("user");
-
     if (userData) {
       const user: User = JSON.parse(userData);
-      
-      // TODO: remove this later
-      // small fix because we didn't save the user id last time
-      if (user.id === undefined) {
-        localStorage.removeItem("user");
-        return;
-      }
-      
       dispatch({
         type: UserActionType.SetUser,
         user: user,
@@ -48,17 +39,19 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // on jwt token change update user info
+  // on user change update user info
   useEffect(() => {
     if (!userState.user) return;
     const { id, role } = userState.user;
-    getDetails(id!, role!).then((user) => {
+    if (!id || !role) return;
+    getDetails(id, role).then((user) => {
       dispatch({
         type: UserActionType.SetUser,
         user,
       });
+      localStorage.setItem("user", JSON.stringify(user));
     });
-  }, [userState.user?.jwtToken]);
+  }, [userState.user]);
 
   return (
     <UserContext.Provider value={{ ...userState, dispatch }}>

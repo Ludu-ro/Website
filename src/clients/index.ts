@@ -7,5 +7,16 @@ import startModule from "./users/startModule";
 import startCourse from "./users/startCourse";
 import addModules from "./users/addModules";
 import finishModule from "./users/finishModule";
+import getResource from "./modules/getResource";
 
-export { getCourses, login, register, getCourse, startModule, startCourse, addModules, finishModule };
+export {
+  getCourses,
+  login,
+  register,
+  getCourse,
+  startModule,
+  startCourse,
+  addModules,
+  finishModule,
+  getResource,
+};
