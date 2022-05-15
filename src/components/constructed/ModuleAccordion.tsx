@@ -66,10 +66,15 @@ function ModuleAccordion({
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel
-            onClick={() => setTargetModule(targetModule)}
+            onClick={() => setTargetModule(module)}
             cursor={"pointer"}
             bg={module.moduleId === targetModule?.moduleId ? "tertiary" : ""}
-            _hover={{ background: "gray.100" }}
+            _hover={{
+              background:
+                module.moduleId === targetModule?.moduleId
+                  ? "tertiary"
+                  : "gray.100",
+            }}
             pb={4}
           >
             {module.description}
