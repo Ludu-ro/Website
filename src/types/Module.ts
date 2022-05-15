@@ -12,7 +12,7 @@ export interface Module {
         slidesFileName: string;
       };
 
-    xpValue: number;
+    xp: number;
 
     homeworkId: String;
 

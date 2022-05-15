@@ -106,8 +106,16 @@ import uploadFile from "../../clients/courses/uploadFile";
       />
     );
   });
+
+  interface InputMultiPart {
+
+    handleFormData: any,
+    values: any
+    text: any
+    module?: any
+  }
   
-function ImageUpload() {
+function ImageUpload( {module, values, text}  : InputMultiPart) {
 
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
@@ -116,10 +124,10 @@ function ImageUpload() {
     const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
       
         if(e.target.files){
-
+          
             const files = e.target.files
             const fileUrl = await uploadFile( files[0]);
-            console.log(fileUrl)
+            values.image = fileUrl
         }
         
        
@@ -182,7 +190,7 @@ function ImageUpload() {
                   
                   <Stack p="8" textAlign="center" spacing="1">
                     <Heading fontSize="lg" color="gray.700" fontWeight="bold">
-                      Adauga o imagine aici
+                      {text}
                     </Heading>
                     <Text fontWeight="light">sau apasa pentru a o incarca</Text>
                   </Stack>

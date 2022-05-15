@@ -8,6 +8,7 @@ export interface Course {
   groupId?: string;
   title: string;
   description: string;
+  difficulty: number
   xpValue: number;
   tags?: Array<Tags>;
 
