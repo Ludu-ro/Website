@@ -1,10 +1,5 @@
-import React, {
-  createContext,
-  ReactNode,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useReducer } from "react";
+import getDetails from "../clients/users/getDetails";
 import { User } from "../types";
 import { UserActions, UserReducer } from "./";
 import { UserActionType } from "./actions/UserActions";
@@ -34,14 +29,29 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
 
   // load user from local storage
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const user: User = JSON.parse(userData);
       dispatch({
         type: UserActionType.SetUser,
-        user: JSON.parse(user),
+        user: user,
       });
     }
   }, []);
+
+  // on user change update user info
+  useEffect(() => {
+    if (!userState.user) return;
+    const { id, role } = userState.user;
+    if (!id || !role) return;
+    getDetails(id, role).then((user) => {
+      dispatch({
+        type: UserActionType.SetUser,
+        user,
+      });
+      localStorage.setItem("user", JSON.stringify(user));
+    });
+  }, [userState.user]);
 
   return (
     <UserContext.Provider value={{ ...userState, dispatch }}>

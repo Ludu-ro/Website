@@ -154,7 +154,7 @@ function Topnav() {
           <MenuItem
             onClick={async () => {
               localStorage.clear();
-              window.location.reload();
+              window.location.replace("/");
             }}
             _focus={{ background: "primary-dark" }}
           >

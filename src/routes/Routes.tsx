@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
+  Module,
   HomeNotLogged,
   Login,
   Register,
@@ -23,38 +24,21 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/course/" element={<Register />} />
         <Route path="/course/:id" element={<Course />} />
-        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
   }
 
-  else{
-
-      if(user.role === 'student'){
-        
-        return (
-          <Routes>
-            <Route path="/" element={<HomeLogged />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/course/:id" element={<Course />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        );
-      }
-      else{
-
-        return (
-          <Routes>
-            <Route path="/" element={<HomeLogged />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/course/:id" element={<Course />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/addCourse" element={<CourseCreate/>} />
-          </Routes>
-        );
-
-      }
-  }
+  // logged in paths
+  return (
+    <Routes>
+      <Route path="/" element={<HomeNotLogged />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/course/:id" element={<Course />} />
+      <Route path="/course/:courseId/module" element={<Module />} />
+      <Route path="/course/:courseId/module/:moduleId" element={<Module />} />
+      <Route path="/addCourse" element={<CourseCreate/>} />
+    </Routes>
+  );
 }
 
 export default AppRoutes;

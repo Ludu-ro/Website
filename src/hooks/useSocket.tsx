@@ -57,7 +57,7 @@ function useSocket({
   if (isMock) {
     return {
       isConnected: false,
-      data: { message: 2 },
+      data: { message: 1 },
       sendData: () => {},
     };
   }

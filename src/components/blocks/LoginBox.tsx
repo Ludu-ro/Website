@@ -10,11 +10,10 @@ import jwt_decode from "jwt-decode";
 import { User } from "../../types";
 
 interface CloseFunction {
-  closeMethod: () => void
+  closeMethod: () => void;
 }
 
 function LoginBox({ closeMethod = () => {} }: CloseFunction) {
-  
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
@@ -48,6 +47,7 @@ function LoginBox({ closeMethod = () => {} }: CloseFunction) {
       // decode information
       const jwtTokenDecoded: any = jwt_decode(jwtToken);
       const user: User = {
+        id: jwtTokenDecoded["unique_name"],
         firstName: jwtTokenDecoded["nameid"],
         lastName: jwtTokenDecoded["family_name"],
         role: jwtTokenDecoded["role"],

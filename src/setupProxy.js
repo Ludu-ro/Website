@@ -6,4 +6,10 @@ module.exports = function (app) {
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
   }));
+
+  app.use(createProxyMiddleware("/resources", {
+    target: "https://courses-slides.s3.amazonaws.com",
+    changeOrigin: true,
+    pathRewrite: { '^/resources': '' },
+  }));
 };
