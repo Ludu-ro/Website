@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import { ActionButton } from "../blocks";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +22,18 @@ function PdfModule({ resource }: PdfModuleInterface) {
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   }, []);
 
+  const prevPage = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const nextPage = () => {
+    if (currentPage < pageNumber) {
+      setCurrentPage((prev) => prev + 1);
+      return;
+    }
+    navigate("/");
+  };
+
   return (
     <Flex gap="4">
       <Flex gap="2" direction={"column"}>
@@ -32,29 +44,27 @@ function PdfModule({ resource }: PdfModuleInterface) {
         >
           <Page pageNumber={currentPage} className="test" />
         </Document>
+
+        {/* Buttons */}
         <Flex gap="4">
+          {/* Previous button */}
           <ActionButton
             width="50%"
-            onClick={() => setCurrentPage((prev) => prev - 1)}
+            onClick={prevPage}
             disabled={currentPage === 1}
           >
             Anterioara pagina
           </ActionButton>
-          <ActionButton
-            width="50%"
-            onClick={() => {
-              if (currentPage < pageNumber) {
-                setCurrentPage((prev) => prev + 1);
-              } else {
-                navigate("/");
-              }
-            }}
-          >
+
+          {/* Next button */}
+          <ActionButton width="50%" onClick={nextPage}>
             {currentPage < pageNumber ? "Urmatoarea pagina" : "Termina modul"}
           </ActionButton>
         </Flex>
       </Flex>
-      <Document file={resource} className="outline">
+
+      {/* Right outline */}
+      <Document file={resource} onLoadSuccess={onPdfLoad} className="outline">
         {Array(pageNumber)
           .fill("")
           .map((_, idx) => (
