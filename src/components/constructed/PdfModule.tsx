@@ -3,17 +3,42 @@ import { pdfjs, Document, Page } from "react-pdf";
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import { ActionButton } from "../blocks";
 import { useNavigate } from "react-router-dom";
+import { startModule, finishModule } from "../../clients"
+import { UserContext, UserActionType } from "../../hooks";
+import { useContext } from "react";
+import { ModuleStatus, Status, User } from "../../types";
 
 interface PdfModuleInterface {
   resource: string;
+  moduleId: string | undefined;
+  courseId: string | undefined;
 }
 
-function PdfModule({ resource }: PdfModuleInterface) {
+function PdfModule({ resource, moduleId, courseId }: PdfModuleInterface) {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const { user, dispatch } = useContext(UserContext);
 
   const onPdfLoad = ({ numPages }: any) => {
+    if (user?.courses && user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.NotStarted) {
+      //api call
+      startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+      
+      //update our user locally
+      const newUser: User = { ...user };
+      newUser.courses = user.courses?.map((m: ModuleStatus) => {
+        if(m.id === moduleId) {
+          return { id: moduleId, status: Status.Started}
+        }
+        return m;
+      });
+      dispatch({
+        type: UserActionType.SetUser,
+        user: newUser,
+      }); 
+    }
+
     setPageNumber(numPages);
     setCurrentPage(1);
   };
@@ -31,7 +56,27 @@ function PdfModule({ resource }: PdfModuleInterface) {
       setCurrentPage((prev) => prev + 1);
       return;
     }
-    navigate("/");
+
+    if (user?.courses && user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.Started) {
+      //api call
+      finishModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+      
+      //update our user locally
+      const newUser: User = { ...user };
+      newUser.courses = user.courses?.map((m: ModuleStatus) => {
+        if(m.id === moduleId) {
+          return { id: moduleId, status: Status.Finished}
+        }
+        return m;
+      });
+      dispatch({
+        type: UserActionType.SetUser,
+        user: newUser,
+      }); 
+    }
+
+    //navigate to course main page
+    navigate(`/course/${courseId}`);
   };
 
   return (
