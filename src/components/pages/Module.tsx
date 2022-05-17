@@ -63,7 +63,7 @@ function Module() {
 
   function ResourceViewer({ resource }: { resource?: Resource }) {
     if (resource?.type === ResourceType.PDF) {
-      return <PdfModule resource={resource.url} />;
+      return <PdfModule resource={resource.url} moduleId={course?.modules[0].moduleId} courseId={course?.courseId}/>;
     }
     return <div>Not found</div>;
   }

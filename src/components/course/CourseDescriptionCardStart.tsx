@@ -53,7 +53,13 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
     if (!user) {
       loginonOpen();
     } else {
-      congratsOnOpen();
+      if (user?.groups?.indexOf(course.courseId) === -1){
+        congratsOnOpen();
+      } else {
+        // navigate to course module
+        navigate(`/course/${course.courseId}/module`);
+      }
+      
     }
   }
 
@@ -83,9 +89,6 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
         user: newUser,
       });
     }
-
-    // navigate to course module
-    navigate(`/course/${course.courseId}/module`);
   }
 
   function showProgressIcon(module: Module) {
@@ -93,9 +96,9 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
       (m: ModuleStatus) => m.id === module.moduleId
     );
     if (m) {
-      if (m.status.toString() === Status[Status.Finished].toLowerCase()) {
+      if (m.status === Status.Finished) {
         return <CheckCircleIcon color="green" />;
-      } else if (m.status.toString() === Status[Status.Started].toLowerCase()) {
+      } else if (m.status === Status.Started) {
         return <SpinnerIcon color="orange" />;
       } else {
         return <LockIcon color="black" />;
@@ -134,7 +137,7 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
         <ActionButton width="sm" onClick={handleStartCourse}>
           {user?.groups?.indexOf(course.courseId) === -1
             ? "Incepem"
-            : "Te-ai inscris!"}
+            : "Parcurge modulele acum!"}
         </ActionButton>
       </Box>
 
