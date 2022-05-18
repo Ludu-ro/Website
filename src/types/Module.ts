@@ -1,3 +1,5 @@
+import { Quiz } from "./Quiz";
+
 export interface Module {
   moduleId: string;
   title: string;
@@ -5,16 +7,5 @@ export interface Module {
   xpValue: number;
   resources?: string;
   homeworkId?: string;
-  quiz?: {
-    name: string;
-    xp: 0;
-    questions: [
-      {
-        answers: Array<string>;
-        correctAnswer: string;
-        difficulty: string;
-        questionText: string;
-      }
-    ];
-  };
+  quiz?: Quiz;
 }

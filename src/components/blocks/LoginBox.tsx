@@ -117,6 +117,7 @@ function LoginBox({ closeMethod = () => {} }: CloseFunction) {
           setter={setPassword}
           error={errors.password}
           color="font-primary"
+          type="password"
         />
 
         <ActionButton width="100%" onClick={handleLogin}>

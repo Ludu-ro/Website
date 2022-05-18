@@ -45,6 +45,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     const { id, role } = userState.user;
     if (!id || !role) return;
     getDetails(id, role).then((user) => {
+      user.role = role;
       dispatch({
         type: UserActionType.SetUser,
         user,
