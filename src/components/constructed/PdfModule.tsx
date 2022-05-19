@@ -1,47 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { ActionButton } from "../blocks";
-import { useNavigate } from "react-router-dom";
-import { startModule, finishModule } from "../../clients"
+import { useNavigate, useParams } from "react-router-dom";
+import { startModule, finishModule } from "../../clients";
 import { UserContext, UserActionType } from "../../hooks";
 import { useContext } from "react";
 import { ModuleStatus, Status, User } from "../../types";
 
 interface PdfModuleInterface {
   resource: string;
-  moduleId: string | undefined;
-  courseId: string | undefined;
 }
 
-function PdfModule({ resource, moduleId, courseId }: PdfModuleInterface) {
+function PdfModule({ resource }: PdfModuleInterface) {
   const navigate = useNavigate();
+  const { courseId, moduleId } = useParams();
+
   const [pageNumber, setPageNumber] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const { user, dispatch } = useContext(UserContext);
 
   const onPdfLoad = ({ numPages }: any) => {
-    if (user?.courses && user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.NotStarted) {
-      //api call
-      startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
-      
-      //update our user locally
-      const newUser: User = { ...user };
-      newUser.courses = user.courses?.map((m: ModuleStatus) => {
-        if(m.id === moduleId) {
-          return { id: moduleId, status: Status.Started}
-        }
-        return m;
-      });
-      dispatch({
-        type: UserActionType.SetUser,
-        user: newUser,
-      }); 
-    }
-
     setPageNumber(numPages);
     setCurrentPage(1);
   };
+
+  useEffect(() => {
+    if (
+      user?.courses &&
+      user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
+        Status.NotStarted
+    ) {
+      //api call
+      startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+
+      //update our user locally
+      const newUser: User = { ...user };
+      newUser.courses = user.courses?.map((m: ModuleStatus) => {
+        if (m.id === moduleId) {
+          return { id: moduleId, status: Status.Started };
+        }
+        return m;
+      });
+
+      dispatch({
+        type: UserActionType.SetUser,
+        user: newUser,
+      });
+    }
+  }, [courseId, moduleId]);
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -57,30 +64,35 @@ function PdfModule({ resource, moduleId, courseId }: PdfModuleInterface) {
       return;
     }
 
-    if (user?.courses && user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.Started) {
+    if (
+      user?.courses &&
+      user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
+        Status.Started
+    ) {
       //api call
       finishModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
-      
+
       //update our user locally
       const newUser: User = { ...user };
       newUser.courses = user.courses?.map((m: ModuleStatus) => {
-        if(m.id === moduleId) {
-          return { id: moduleId, status: Status.Finished}
+        if (m.id === moduleId) {
+          return { id: moduleId, status: Status.Finished };
         }
         return m;
       });
+
       dispatch({
         type: UserActionType.SetUser,
         user: newUser,
-      }); 
+      });
     }
 
-    //navigate to course main page
-    navigate(`/course/${courseId}`);
+    //navigate to quiz page
+    navigate(`quiz`);
   };
 
   return (
-    <Flex gap="4">
+    <Flex gap="4" w="75vw">
       <Flex gap="2" direction={"column"}>
         <Document
           error={"PDF-ul nu a putut fi afisate :("}

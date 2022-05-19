@@ -24,6 +24,7 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/course/" element={<Register />} />
         <Route path="/course/:id" element={<Course />} />
+        <Route path="*" element={<HomeNotLogged />} />
       </Routes>
     );
   }
@@ -37,6 +38,11 @@ function AppRoutes() {
       <Route path="/course/:courseId/module" element={<Module />} />
       <Route path="/course/:courseId/module/:moduleId" element={<Module />} />
       <Route path="/addCourse" element={<CourseCreate/>} />
+      <Route
+        path="/course/:courseId/module/:moduleId/quiz"
+        element={<Module />}
+      />
+      <Route path="*" element={<HomeNotLogged />} />
     </Routes>
   );
 }

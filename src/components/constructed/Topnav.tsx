@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { OnlinePlayers } from "../blocks";
-import { UserContext } from "../../hooks";
+import { UserActionType, UserContext } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { AssistantContext } from "./assistant/AssistantContext";
@@ -28,7 +28,6 @@ import { Student } from "../../types";
 
 function AssistantIcon() {
   const { messages, setIsClosed, isClosed } = useContext(AssistantContext);
-  const { user } = useContext(UserContext);
 
   if (!isClosed) {
     return <React.Fragment />;
@@ -62,7 +61,7 @@ function AssistantIcon() {
 
 function Topnav() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, dispatch } = useContext(UserContext);
 
   // not logged in
   if (!user) {
@@ -99,11 +98,6 @@ function Topnav() {
         />
         <Input color="black" bg="white" type="tel" placeholder="Cauta" />
       </InputGroup>
-
-      {/* Online players */}
-      {/* <Box display={["none", "block"]}>
-        <OnlinePlayers />
-      </Box> */}
 
       <Box display={["none", "block"]}>
         <OnlinePlayers />
@@ -155,6 +149,10 @@ function Topnav() {
             onClick={async () => {
               localStorage.clear();
               window.location.replace("/");
+              dispatch({
+                type: UserActionType.SetUser,
+                user: null,
+              });
             }}
             _focus={{ background: "primary-dark" }}
           >
