@@ -44,7 +44,7 @@ function QuizModule({ quiz }: QuizModuleInterface) {
 
   const handleSubmit = () => {
     if (answers.filter((a) => a === null).length > 0) {
-      alert("Please answer all questions");
+      alert("Nu ai raspuns la toate intrebarile!");
       return;
     }
 
@@ -80,7 +80,7 @@ function QuizModule({ quiz }: QuizModuleInterface) {
       >
         <CircularProgress
           color={score > maxScore / 2 ? "green" : "red"}
-          value={(maxScore / score) * 100}
+          value={(score * 100) / maxScore}
           size="32"
         />
         <Text fontWeight="bold" fontSize="2xl">
