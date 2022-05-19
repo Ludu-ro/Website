@@ -44,6 +44,8 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
         return errors;
       };
 
+      var border: string = "primary-dark";
+
       const handleCreateModule = async () => {
         const errors = validate();
         setErrors(errors);
@@ -56,8 +58,8 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
             module.description = description
             module.xpValue = xp
 
-            console.log(module)
             values.modules.push(module)
+            border = "red"
             setisFormEnabled(true)
         }
       };
@@ -68,7 +70,7 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
         <Flex
         border="1px"
         bg="whitesmoke"
-        borderColor="primary-dark"
+        borderColor={border}
         margin="5"
         rounded='md'
         p="10"
@@ -126,6 +128,7 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
                         handleFormData={handleModuleData}
                         values = {values}
                         module = {module}
+                        type = {"*/*"}
                 />
             <FormErrorMessage>{errors.image}</FormErrorMessage>
         </FormControl>

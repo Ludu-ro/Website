@@ -18,7 +18,6 @@ import {
     Select,
     OptionBase,
     GroupBase,
-    MultiValue
   } from "chakra-react-select";
 import { useState } from "react";
 import { ActionButton } from "../blocks";
@@ -227,6 +226,7 @@ import ImageUpload from "../blocks/ImageUpload";
                         text={"Adauga o imagine"}
                         handleFormData={handleFormData}
                         values = {values}
+                        type = {"image/*"}
                 />
            
             <FormErrorMessage>{errors.image}</FormErrorMessage>

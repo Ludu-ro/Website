@@ -34,14 +34,10 @@ import ModuleBlock from "../blocks/ModuleBlock";
   };
     
 
-    const clearModule = () => {
-        setIndexes([]);
-      };
-
     const handleCreateCourse = async () => {
 
-      console.log(values)
       const course = await createCourse(values);
+      nextStep()
     }
 
     return (
@@ -77,10 +73,6 @@ import ModuleBlock from "../blocks/ModuleBlock";
 
         <Flex  direction="column" p="5" justifyContent="space-evenly">
             <AcceptButton width="50" onClick={addModule}>Adauga un modul</AcceptButton>        
-        </Flex>
-        
-        <Flex  direction="column" p="5" justifyContent="space-evenly">
-            <AcceptButton width="50" onClick={clearModule}>Sterge modulele</AcceptButton>
         </Flex>
 
         <Flex p="10" justifyContent="space-around">

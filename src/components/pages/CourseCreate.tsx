@@ -1,11 +1,11 @@
-import { Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import { ModuleResolutionKind } from "typescript";
 import { Course, Module } from "../../types";
 import { CourseInput } from "../../types/CourseInput";
 
 import CourseCreateBasicDetails from "./CourseCreateBasicDetails";
+import CreateSucces from "./CreateSuccess";
 import ModuleCreate from "./ModuleCreate";
+
 
 
 function CourseCreate(){
@@ -95,7 +95,7 @@ const handleAddModuleData = (input: any, ...args: Module[]) => (e: any) => {
         );
         default:
         return (
-            <Flex></Flex>
+            <CreateSucces/>
         );
     }
 

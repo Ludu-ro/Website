@@ -6,6 +6,7 @@ import {
     forwardRef,
     Heading,
     Input,
+    Spinner,
     Stack,
     Text
   } from "@chakra-ui/react";
@@ -113,33 +114,36 @@ import uploadFile from "../../clients/courses/uploadFile";
     values: any
     text: any
     module?: any
+    type: string
   }
   
-function ImageUpload( {module, values, text}  : InputMultiPart) {
+function ImageUpload( {module, values, text, type}  : InputMultiPart) {
 
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
     const stopAnimation = () => controls.stop();
     const [imageName, setImageName] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     
     const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-      
-        if(e.target.files){
-          
-            const files = e.target.files
-            const fileUrl = await uploadFile( files[0]);
 
-            if(!module){
-              values.image = fileUrl
-              setImageName(getResource)
-            }
-            else{
+      const file = e!!.target!!.files!![0]
+      console.log(e!!.target!!.files!![0].stream)
 
-              module.resources = fileUrl
-              setImageName(getResource)
-            }
-        }
-      
+      setIsLoading(true)
+      const fileUrl = await uploadFile(file)
+
+          if(!module){
+            values.image = fileUrl
+            setImageName(getResource)
+          }
+          else{
+
+            module.resources = fileUrl
+            setImageName(getResource)
+          }
+
+      setIsLoading(false)
        
       };
 
@@ -157,7 +161,9 @@ function ImageUpload( {module, values, text}  : InputMultiPart) {
 
     return (
       <Container p="3" maxWidth="none">
+         {isLoading && <Spinner color="tertiary" />}
          <Text>Resursa incarcata: { imageName}</Text>
+
         <AspectRatio width="64" ratio={1}>
        
           <Box
@@ -229,10 +235,10 @@ function ImageUpload( {module, values, text}  : InputMultiPart) {
                 left="0"
                 opacity="0"
                 aria-hidden="true"
-                accept="image/*"
+                accept={type}
                 onDragEnter={startAnimation}
                 onDragLeave={stopAnimation}
-                onChange = {e => handleFileUpload(e)}
+                onChange = {handleFileUpload}
               />
 
             </Box>

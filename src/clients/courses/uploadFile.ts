@@ -10,8 +10,11 @@ async function uploadFile(file : File): Promise<String> {
       `/slides/upload`, 
         bodyFormData,
     {
-        withCredentials: false,
-    }
+        headers: {
+          'content-type': 'multipart/form-data'
+      }
+    }, 
+    
   );
   return data;
 }
