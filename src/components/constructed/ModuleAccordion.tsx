@@ -32,10 +32,10 @@ function ModuleAccordion({ modules, targetModule }: ModuleAccordionInterface) {
     if (!m) {
       return <LockIcon color="black" />;
     }
-    if (m.status.toString() === Status[Status.Finished].toLowerCase()) {
+    if (m.status.toString() === Status.Finished) {
       return <CheckCircleIcon color="green" />;
     }
-    if (m.status.toString() === Status[Status.Started].toLowerCase()) {
+    if (m.status.toString() === Status.Started) {
       return <SpinnerIcon color="orange" />;
     }
     return <LockIcon color="black" />;

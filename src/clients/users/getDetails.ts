@@ -2,8 +2,8 @@ import axios from "axios";
 import { User } from "../../types";
 
 async function getDetails(
-  id: string,
-  type: "student" | "teacher"
+  id: string | undefined,
+  type: "student" | "teacher" | undefined
 ): Promise<User> {
   const { data } = await axios.get<User>(`/api/${type}s/${id}`, {
     withCredentials: false,

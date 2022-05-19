@@ -4,7 +4,7 @@ export interface ModuleStatus {
   }
   
 export enum Status {
-    NotStarted,
-    Started,
-    Finished
+    NotStarted = "notstarted",
+    Started = "started",
+    Finished = "finished"
   }

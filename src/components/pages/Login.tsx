@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/login.png";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
+import getDetails from "../../clients/users/getDetails";
 
 function Login() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function Login() {
 
       // decode information
       const jwtTokenDecoded: any = jwt_decode(jwtToken);
-      const user: User = {
+      const u: User = {
         id: jwtTokenDecoded["unique_name"],
         firstName: jwtTokenDecoded["nameid"],
         lastName: jwtTokenDecoded["family_name"],
@@ -49,10 +50,12 @@ function Login() {
         jwtToken: jwtToken,
       };
 
-      // save information into state context
-      dispatch({
-        type: UserActionType.SetUser,
-        user,
+      getDetails(u.id, u.role).then((user) => {
+        user.role = u.role;
+        dispatch({
+          type: UserActionType.SetUser,
+          user,
+        });
       });
     } catch (error) {
       setErrors({

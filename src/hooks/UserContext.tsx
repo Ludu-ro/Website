@@ -42,16 +42,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   // on user change update user info
   useEffect(() => {
     if (!userState.user) return;
-    const { id, role } = userState.user;
-    if (!id || !role) return;
-    getDetails(id, role).then((user) => {
-      user.role = role;
-      dispatch({
-        type: UserActionType.SetUser,
-        user,
-      });
-      localStorage.setItem("user", JSON.stringify(user));
-    });
+    localStorage.setItem("user", JSON.stringify(userState.user));
   }, [userState.user]);
 
   return (

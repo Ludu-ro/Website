@@ -1,6 +1,5 @@
 import {
   Image,
-  Badge,
   Box,
   Accordion,
   AccordionItem,
@@ -12,7 +11,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   Button,
   ModalBody,
@@ -26,7 +24,7 @@ import { Course } from "../../types/Course";
 import { ActionButton, LoginBox } from "../blocks";
 import CourseDescription from "./CourseDescription";
 import CongratsImage from "../../assets/congratulation.png";
-import { ArrowForwardIcon, LockIcon, MinusIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, LockIcon } from "@chakra-ui/icons";
 import { startCourse, addModules } from "../../clients";
 import { CheckCircleIcon, SpinnerIcon } from "@chakra-ui/icons";
 import { ModuleStatus, Status, Module, User } from "../../types";
@@ -92,13 +90,16 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
   }
 
   function showProgressIcon(module: Module) {
+    console.log("user", user);
+    console.log("course", course)
     var m: ModuleStatus | undefined = user?.courses?.find(
       (m: ModuleStatus) => m.id === module.moduleId
     );
     if (m) {
-      if (m.status === Status.Finished) {
+      console.log("module", m);
+      if (m.status.toString() === Status.Finished) {
         return <CheckCircleIcon color="green" />;
-      } else if (m.status === Status.Started) {
+      } else if (m.status.toString() === Status.Started) {
         return <SpinnerIcon color="orange" />;
       } else {
         return <LockIcon color="black" />;

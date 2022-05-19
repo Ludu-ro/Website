@@ -105,23 +105,27 @@ function Topnav() {
 
       <Flex direction="column" gap="1">
         {/* Gold */}
-        {user.role == "student" && (
+        {/* {user.role == "student" && (
           <Badge color="secondary" bg="primary-dark" borderRadius="lg">
             {(user as Student).xp || 0}
             <Icon ml="2">
               <FontAwesomeIcon icon={faCoins} />
             </Icon>
           </Badge>
-        )}
+        )} */}
 
         {/* Xp */}
-        {user.role == "student" && (
+        {user.role === "student" && (
           <Badge color="secondary" bg="primary-dark" borderRadius="lg">
             {(user as Student).xp || 0} xp
           </Badge>
         )}
       </Flex>
-
+      {user.role === "student" && (
+          <Badge color="secondary" bg="primary-dark" borderRadius="lg">
+            Level {(user as Student).level || 0}
+          </Badge>
+        )}
       <AssistantIcon />
 
       {/* Profile */}

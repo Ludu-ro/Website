@@ -8,6 +8,8 @@ import startCourse from "./users/startCourse";
 import addModules from "./users/addModules";
 import finishModule from "./users/finishModule";
 import getResource from "./modules/getResource";
+import increaseXp from "./users/increaseXp";
+import getDetails from "./users/getDetails";
 
 export {
   getCourses,
@@ -19,4 +21,6 @@ export {
   addModules,
   finishModule,
   getResource,
+  increaseXp,
+  getDetails
 };
