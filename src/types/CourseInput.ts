@@ -1,22 +1,15 @@
-import { Module } from "./Module";
+import { ModuleInput } from "./ModuleInput";
 
 export type Tags = "PYTHON" | "JAVA" | "AWS" | "MYSQL";
 
-export interface Course {
+export interface CourseInput {
   teacherId: string;
-  courseId: string;
-  groupId?: string;
   title: string;
   description: string;
   difficulty: number
   xpValue: number;
   tags?: Array<Tags>;
-
-  // TODO
   image: string;
-  rating: number;
-  reviews: number;
-  numberOfAttendees: number;
   duration: number;
-  modules: Array<Module>
+  modules: Array<ModuleInput>
 }
