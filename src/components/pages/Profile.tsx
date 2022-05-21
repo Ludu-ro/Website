@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  Flex,
-  Text,
-  FormControl,
-  FormErrorMessage,
-  Input,
-  Box,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Text, Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ActionButton } from "../blocks";
-import getAchievements from "../../clients/achievements/getUserAchievements";
+import { getAchievements } from "../../clients";
 
 function Profile() {
   const navigate = useNavigate();
