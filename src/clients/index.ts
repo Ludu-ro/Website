@@ -1,3 +1,6 @@
+import getAchievements from "./achievements/getUserAchievements";
+import addAchievement from "./achievements/addAchievement";
+
 import getCourse from "./courses/getCourse";
 import getCourses from "./courses/getCourses";
 
@@ -12,6 +15,8 @@ import increaseXp from "./users/increaseXp";
 import getDetails from "./users/getDetails";
 
 export {
+  getAchievements,
+  addAchievement,
   getCourses,
   login,
   register,
@@ -22,5 +27,5 @@ export {
   finishModule,
   getResource,
   increaseXp,
-  getDetails
+  getDetails,
 };

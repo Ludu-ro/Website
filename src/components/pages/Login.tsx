@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Flex, Text, Divider, Box, Spinner } from "@chakra-ui/react";
+import {
+  Image,
+  Flex,
+  Text,
+  Divider,
+  Box,
+  Spinner,
+  useToast,
+} from "@chakra-ui/react";
 import { UserContext, UserActionType } from "../../hooks/";
 import { ActionButton, FormInput, InfoButton } from "../blocks";
 import { login } from "../../clients";
@@ -7,9 +15,11 @@ import { useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/login.png";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
-import getDetails from "../../clients/users/getDetails";
+import { getDetails, addAchievement } from "../../clients";
+import Achievement from "../blocks/Achievement";
 
 function Login() {
+  const toast = useToast();
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
@@ -56,6 +66,10 @@ function Login() {
           type: UserActionType.SetUser,
           user,
         });
+      });
+
+      addAchievement(u.id, "NewUser").then(() => {
+        toast({ ...Achievement({ type: "NewUser" }) });
       });
     } catch (error) {
       setErrors({
