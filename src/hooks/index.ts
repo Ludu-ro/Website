@@ -10,9 +10,11 @@ import { CourseDetailsContext, CourseDetailsContextProvider } from "./CourseDeta
 import { CourseDetailsActionType, CourseDetailsActions } from "./actions/CourseDetailsActions";
 import { CourseDetailsReducer } from "./reducers/CourseDetailsReducer";
 
+import { CoursesRecommandationContext, CoursesRecommandationContextProvider } from "./CourseRecommandationContext";
+import { CourseRecommandationActionType, CourseRecommandationActions } from "./actions/CourseRecommandationActions";
+import { CourseRecommandationReducer } from "./reducers/CourseRecommandationReducer";
+
 import { useSocket } from "./useSocket";
-
-
 
 export {
   // courses context
@@ -30,7 +32,12 @@ export {
   CourseDetailsContextProvider,
   CourseDetailsActionType,
   CourseDetailsReducer,
+  //courseRecommandation
+  CoursesRecommandationContext,
+  CoursesRecommandationContextProvider,
+  CourseRecommandationActionType,
+  CourseRecommandationReducer,
   // socket
   useSocket,
 };
-export type { CourseActions, UserActions, CourseDetailsActions };
+export type { CourseActions, UserActions, CourseDetailsActions, CourseRecommandationActions };

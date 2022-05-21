@@ -75,7 +75,6 @@ function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
       //update our user locally
       getDetails(user.id, user.role).then((u) => {
         u.role = user.role;
-        console.log(u)
         dispatch({
           type: UserActionType.SetUser,
           user: u,

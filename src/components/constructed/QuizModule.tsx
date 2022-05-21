@@ -7,9 +7,10 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCourse } from "../../clients";
+import { getCourse, getDetails, increaseXp } from "../../clients";
+import { UserActionType, UserContext } from "../../hooks";
 import { Quiz } from "../../types/Quiz";
 import { ActionButton, InfoButton } from "../blocks";
 
@@ -18,6 +19,7 @@ interface QuizModuleInterface {
 }
 
 function QuizModule({ quiz }: QuizModuleInterface) {
+  const { user, dispatch } = useContext(UserContext);
   const { courseId, moduleId } = useParams();
   const navigate = useNavigate();
 
@@ -56,6 +58,19 @@ function QuizModule({ quiz }: QuizModuleInterface) {
     }, 0);
 
     setScore(score);
+    if (score > maxScore / 2) {
+      //api call
+      increaseXp(user?.id, quiz.xp, localStorage.getItem("jwt"));
+
+      //update our user locally
+      getDetails(user?.id, user?.role).then((u) => {
+        u.role = user?.role;
+        dispatch({
+          type: UserActionType.SetUser,
+          user: u,
+        });
+      });
+    }
   };
 
   const handleNextPage = () => {

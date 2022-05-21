@@ -90,13 +90,10 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
   }
 
   function showProgressIcon(module: Module) {
-    console.log("user", user);
-    console.log("course", course)
     var m: ModuleStatus | undefined = user?.courses?.find(
       (m: ModuleStatus) => m.id === module.moduleId
     );
     if (m) {
-      console.log("module", m);
       if (m.status.toString() === Status.Finished) {
         return <CheckCircleIcon color="green" />;
       } else if (m.status.toString() === Status.Started) {

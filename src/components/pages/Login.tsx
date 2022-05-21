@@ -8,6 +8,7 @@ import LoginImg from "../../assets/login.png";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
 import getDetails from "../../clients/users/getDetails";
+import HomeLogged from "./HomeLogged";
 
 function Login() {
   const navigate = useNavigate();

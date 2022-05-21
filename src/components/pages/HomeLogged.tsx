@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { CoursesLibrary } from "../constructed";
+import { CoursesLibrary, CoursesRecommandation } from "../constructed";
 import { useNavigate } from "react-router-dom";
 import { ActionButton } from "../blocks";
 import { UserContext } from "../../hooks/UserContext";
+import { UserActionType } from "../../hooks";
 
 function HomeLogged() {
 
@@ -22,7 +23,7 @@ function HomeLogged() {
         >
         {/* Title */}
         <Text color="font-secondary" fontSize="3xl" mt="5%">
-            Bine ai venit Teacher!
+            Bine ai venit, {user?.firstName} {user?.lastName}!
         </Text>
 
         <Flex gap="4">
@@ -51,11 +52,12 @@ function HomeLogged() {
         >
         {/* Title */}
         <Text color="font-secondary" fontSize="3xl" mt="5%">
-            Bine ai venit Student!
+            Bine ai venit, {user?.firstName} {user?.lastName}!
         </Text>
 
         {/* Rest of courses */}
         <Box mt="5%" mb="10">
+            <CoursesRecommandation />
             <CoursesLibrary />
         </Box>
         </Flex>

@@ -7,6 +7,9 @@ import Footer from "./Footer";
 import ModuleAccordion from "./ModuleAccordion";
 import PdfModule from "./PdfModule";
 import Topnav from "./Topnav";
+import CoursesRecommandation from "./recommandation/CoursesRecommandation";
+import CoursesRecommandationLoading from "./recommandation/CoursesRecommandationLoading";
+import CoursesRecommandationItem from "./recommandation/CoursesRecommandationItem";
 
 export {
   Assistant,
@@ -18,4 +21,7 @@ export {
   PdfModule,
   Topnav,
   CourseDetails,
+  CoursesRecommandation,
+  CoursesRecommandationLoading,
+  CoursesRecommandationItem
 };

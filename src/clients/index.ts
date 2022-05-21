@@ -10,6 +10,7 @@ import finishModule from "./users/finishModule";
 import getResource from "./modules/getResource";
 import increaseXp from "./users/increaseXp";
 import getDetails from "./users/getDetails";
+import getCourseRecommandation from "./recommandation/getCourseRecommandation";
 
 export {
   getCourses,
@@ -22,5 +23,6 @@ export {
   finishModule,
   getResource,
   increaseXp,
-  getDetails
+  getDetails,
+  getCourseRecommandation
 };
