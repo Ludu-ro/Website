@@ -1,3 +1,6 @@
+import getAchievements from "./achievements/getUserAchievements";
+import addAchievement from "./achievements/addAchievement";
+
 import getCourse from "./courses/getCourse";
 import getCourses from "./courses/getCourses";
 
@@ -13,6 +16,8 @@ import getDetails from "./users/getDetails";
 import getCourseRecommandation from "./recommandation/getCourseRecommandation";
 
 export {
+  getAchievements,
+  addAchievement,
   getCourses,
   login,
   register,
