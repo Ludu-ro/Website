@@ -1,5 +1,6 @@
 import {
   Image,
+  Badge,
   Box,
   Accordion,
   AccordionItem,
@@ -121,6 +122,9 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Icon as={RiFilePaper2Fill}></Icon> {module.description}
+              <Badge  p="1" bg="tertiary" float="right">
+                {module.xpValue || 0} xp
+               </Badge>
             </AccordionPanel>
           </AccordionItem>
         ))}

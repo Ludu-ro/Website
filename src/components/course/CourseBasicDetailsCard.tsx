@@ -42,8 +42,8 @@ function CourseBasicDetailsCard({ course }: CourseDetailsInterface) {
         <CourseDetailsLine icon={<Icon alignSelf="center" color="primary-dark" w={7} h={7} as={GiPapers}/>} value={course.modules.length} field={" Numar de module:"}></CourseDetailsLine>
       
         <Badge marginTop = "5" p="1" bg="tertiary">
-            {course.xpValue} xp
-          </Badge>
+          {course.modules.map(m => m.xpValue).reduce((acc, current) => acc + current)} xp
+        </Badge>
           
     </Box>
   );

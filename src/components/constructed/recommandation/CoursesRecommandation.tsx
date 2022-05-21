@@ -1,15 +1,16 @@
 import { useContext, useEffect } from "react";
 import { Flex } from "@chakra-ui/react";
-import { CoursesRecommandationContext, CourseRecommandationActionType } from "../../../hooks";
+import { CoursesRecommandationContext, CourseRecommandationActionType, UserContext } from "../../../hooks";
 import { getCourseRecommandation } from "../../../clients";
 import CoursesRecommandationLoading from "./CoursesRecommandationLoading";
 import CoursesRecommandationItem from "./CoursesRecommandationItem";
 
 function CoursesRecommandation() {
 const { courses, dispatch, isLoading } = useContext(CoursesRecommandationContext);
+const { user } = useContext(UserContext)
 
   useEffect(() => {
-    getCourseRecommandation().then((courses) => {
+    getCourseRecommandation(user?.id, localStorage.getItem("jwt")).then((courses) => {
       dispatch({ type: CourseRecommandationActionType.SetCourses, courses });
     });
   }, []);

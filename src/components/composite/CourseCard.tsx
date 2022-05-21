@@ -40,11 +40,14 @@ function CourseCard({ course }: { course: Course }) {
         <Text isTruncated>{course.description}</Text>
 
         <Box display="flex" gap="2" alignItems="center">
-          <Stars rating={course.rating || 1} />
+          <Stars rating={course.rating || Math.floor(Math.random() * 5)} />
           {course.reviews} reviews
           <Box flex="1" />
           <Badge p="1" bg="tertiary">
-            {course.xpValue} xp
+            {course.modules.map(m => m.xpValue).reduce((acc, current) => acc + current)} xp
+          </Badge>
+          <Badge p="1" bg="tertiary">
+            {course.difficulty}
           </Badge>
         </Box>
       </Box>
