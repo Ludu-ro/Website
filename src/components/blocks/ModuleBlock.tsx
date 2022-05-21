@@ -1,7 +1,9 @@
 import { Button, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
+import React from "react";
 import { useState } from "react";
 import { ModuleInput } from "../../types/ModuleInput";
 import ImageUpload from "./ImageUpload";
+import QuizBlock from "./QuizBlock";
 
 interface ModulePageInput {
 
@@ -14,6 +16,7 @@ interface ModulePageInput {
 function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: ModulePageInput){
 
     const [errors, setErrors] = useState<any>({});
+    const [hasRender, setRender] = useState(false);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -121,6 +124,15 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
             <FormErrorMessage>{errors.Xp}</FormErrorMessage>
         </FormControl>
 
+        <Button marginTop='5' w = "100%" colorScheme='purple' disabled={isFormEnabled} onClick={() => setRender(true)}>
+                Adauga Quiz
+        </Button>
+
+        {hasRender && <Button marginTop='5' w = "100%" colorScheme='orange' disabled={isFormEnabled} onClick={() => setRender(false)}>
+                Elimina Quiz
+        </Button>}
+        {hasRender && <QuizBlock module = {module}/>}
+
         <FormControl isInvalid={!!errors.image}>
             <FormLabel textColor="primary-dark" htmlFor='photo'>Incarca resursa necesare acestui curs</FormLabel>
                 <ImageUpload 
@@ -135,14 +147,14 @@ function ModuleBlock({index, handleRemoveModule, handleModuleData, values}: Modu
 
         <Flex m="10" direction="row" justifyContent="space-around">
             <Button  colorScheme='teal' disabled={isFormEnabled} onClick={handleCreateModule}>
-                Adauga Modul
+                Salveza Modul
             </Button>
             <Button 
                 disabled={isFormEnabled}
                 bg="tertiary"
                 color="font-primary"  
                 onClick={handleRemoveModule(index)}>
-                Remove
+                Elimina
             </Button>
         </Flex>
         </fieldset>
