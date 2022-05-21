@@ -69,7 +69,7 @@ function Module() {
 
   function ResourceViewer({ resource }: { resource?: Resource }) {
     if (resource?.type === ResourceType.PDF) {
-      return <PdfModule resource={resource.url} />;
+      return <PdfModule resource={resource.url} moduleXp={100}/>;
     }
     if (resource?.type === ResourceType.Quiz) {
       return <QuizModule quiz={resource.url} />;

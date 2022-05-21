@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Image, Flex, Text, Divider, Box, Spinner } from "@chakra-ui/react";
+import {
+  Image,
+  Flex,
+  Text,
+  Divider,
+  Box,
+  Spinner,
+  useToast,
+} from "@chakra-ui/react";
 import { UserContext, UserActionType } from "../../hooks/";
 import { ActionButton, FormInput, InfoButton } from "../blocks";
 import { login } from "../../clients";
@@ -7,8 +15,12 @@ import { useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/login.png";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
+import HomeLogged from "./HomeLogged";
+import { getDetails, addAchievement } from "../../clients";
+import Achievement from "../blocks/Achievement";
 
 function Login() {
+  const toast = useToast();
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
@@ -41,7 +53,7 @@ function Login() {
 
       // decode information
       const jwtTokenDecoded: any = jwt_decode(jwtToken);
-      const user: User = {
+      const u: User = {
         id: jwtTokenDecoded["unique_name"],
         firstName: jwtTokenDecoded["nameid"],
         lastName: jwtTokenDecoded["family_name"],
@@ -49,10 +61,16 @@ function Login() {
         jwtToken: jwtToken,
       };
 
-      // save information into state context
-      dispatch({
-        type: UserActionType.SetUser,
-        user,
+      getDetails(u.id, u.role).then((user) => {
+        user.role = u.role;
+        dispatch({
+          type: UserActionType.SetUser,
+          user,
+        });
+      });
+
+      addAchievement(u.id, "NewUser").then(() => {
+        toast({ ...Achievement({ type: "NewUser" }) });
       });
     } catch (error) {
       setErrors({

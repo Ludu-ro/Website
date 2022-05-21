@@ -12,7 +12,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   Button,
   ModalBody,
@@ -26,7 +25,7 @@ import { Course } from "../../types/Course";
 import { ActionButton, LoginBox } from "../blocks";
 import CourseDescription from "./CourseDescription";
 import CongratsImage from "../../assets/congratulation.png";
-import { ArrowForwardIcon, LockIcon, MinusIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, LockIcon } from "@chakra-ui/icons";
 import { startCourse, addModules } from "../../clients";
 import { CheckCircleIcon, SpinnerIcon } from "@chakra-ui/icons";
 import { ModuleStatus, Status, Module, User } from "../../types";
@@ -96,9 +95,9 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
       (m: ModuleStatus) => m.id === module.moduleId
     );
     if (m) {
-      if (m.status === Status.Finished) {
+      if (m.status.toString() === Status.Finished) {
         return <CheckCircleIcon color="green" />;
-      } else if (m.status === Status.Started) {
+      } else if (m.status.toString() === Status.Started) {
         return <SpinnerIcon color="orange" />;
       } else {
         return <LockIcon color="black" />;
@@ -123,6 +122,9 @@ function CourseDescriptionCardOnProgress({ course }: CourseDetailsInterface) {
             </AccordionButton>
             <AccordionPanel pb={4}>
               <Icon as={RiFilePaper2Fill}></Icon> {module.description}
+              <Badge  p="1" bg="tertiary" float="right">
+                {module.xpValue || 0} xp
+               </Badge>
             </AccordionPanel>
           </AccordionItem>
         ))}

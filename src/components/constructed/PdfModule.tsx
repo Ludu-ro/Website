@@ -3,16 +3,17 @@ import { pdfjs, Document, Page } from "react-pdf";
 import { Flex } from "@chakra-ui/react";
 import { ActionButton } from "../blocks";
 import { useNavigate, useParams } from "react-router-dom";
-import { startModule, finishModule } from "../../clients";
+import { startModule, finishModule, increaseXp, getDetails } from "../../clients";
 import { UserContext, UserActionType } from "../../hooks";
 import { useContext } from "react";
-import { ModuleStatus, Status, User } from "../../types";
+import { ModuleStatus, Status, Student, User } from "../../types";
 
 interface PdfModuleInterface {
   resource: string;
+  moduleXp: number | undefined;
 }
 
-function PdfModule({ resource }: PdfModuleInterface) {
+function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
   const navigate = useNavigate();
   const { courseId, moduleId } = useParams();
 
@@ -28,8 +29,7 @@ function PdfModule({ resource }: PdfModuleInterface) {
   useEffect(() => {
     if (
       user?.courses &&
-      user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
-        Status.NotStarted
+      user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.NotStarted
     ) {
       //api call
       startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
@@ -66,24 +66,19 @@ function PdfModule({ resource }: PdfModuleInterface) {
 
     if (
       user?.courses &&
-      user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
-        Status.Started
+      user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.Started
     ) {
       //api call
       finishModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+      increaseXp(user.id, moduleXp || 0, localStorage.getItem("jwt"))
 
       //update our user locally
-      const newUser: User = { ...user };
-      newUser.courses = user.courses?.map((m: ModuleStatus) => {
-        if (m.id === moduleId) {
-          return { id: moduleId, status: Status.Finished };
-        }
-        return m;
-      });
-
-      dispatch({
-        type: UserActionType.SetUser,
-        user: newUser,
+      getDetails(user.id, user.role).then((u) => {
+        u.role = user.role;
+        dispatch({
+          type: UserActionType.SetUser,
+          user: u,
+        });
       });
     }
 

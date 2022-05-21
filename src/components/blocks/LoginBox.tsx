@@ -1,19 +1,22 @@
-import { Text, Flex, Divider, Spinner } from "@chakra-ui/react";
+import { Text, Flex, Divider, Spinner, useToast } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../clients";
+import { getDetails, login } from "../../clients";
 import { UserActionType, UserContext } from "../../hooks";
 import ActionButton from "./ActionButton";
 import FormInput from "./FormInput";
 import InfoButton from "./InfoButton";
 import jwt_decode from "jwt-decode";
 import { User } from "../../types";
+import { addAchievement } from "../../clients";
+import Achievement from "./Achievement";
 
 interface CloseFunction {
   closeMethod: () => void;
 }
 
 function LoginBox({ closeMethod = () => {} }: CloseFunction) {
+  const toast = useToast();
   const navigate = useNavigate();
   const { user, dispatch } = useContext(UserContext);
   const [username, setUsername] = useState("");
@@ -46,7 +49,7 @@ function LoginBox({ closeMethod = () => {} }: CloseFunction) {
 
       // decode information
       const jwtTokenDecoded: any = jwt_decode(jwtToken);
-      const user: User = {
+      const u: User = {
         id: jwtTokenDecoded["unique_name"],
         firstName: jwtTokenDecoded["nameid"],
         lastName: jwtTokenDecoded["family_name"],
@@ -54,10 +57,16 @@ function LoginBox({ closeMethod = () => {} }: CloseFunction) {
         jwtToken: jwtToken,
       };
 
-      // save information into state context
-      dispatch({
-        type: UserActionType.SetUser,
-        user,
+      getDetails(u.id, u.role).then((user) => {
+        user.role = u.role;
+        dispatch({
+          type: UserActionType.SetUser,
+          user,
+        });
+      });
+
+      addAchievement(u.id, "NewUser").then(() => {
+        toast({ ...Achievement({ type: "NewUser" }) });
       });
     } catch (error) {
       setErrors({
