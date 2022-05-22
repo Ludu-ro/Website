@@ -6,19 +6,27 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCourse, getDetails, increaseXp } from "../../clients";
+import {
+  addAchievement,
+  getCourse,
+  getDetails,
+  increaseXp,
+} from "../../clients";
 import { UserActionType, UserContext } from "../../hooks";
 import { Quiz } from "../../types/Quiz";
 import { ActionButton, InfoButton } from "../blocks";
+import Achievement from "../blocks/Achievement";
 
 interface QuizModuleInterface {
   quiz: Quiz;
 }
 
 function QuizModule({ quiz }: QuizModuleInterface) {
+  const toast = useToast();
   const { user, dispatch } = useContext(UserContext);
   const { courseId, moduleId } = useParams();
   const navigate = useNavigate();
@@ -69,6 +77,11 @@ function QuizModule({ quiz }: QuizModuleInterface) {
           type: UserActionType.SetUser,
           user: u,
         });
+      });
+
+      // achievement terminat quiz cu punctaj bun
+      addAchievement(user?.id, "GoodQuizScore").then(() => {
+        toast({ ...Achievement({ type: "GoodQuizScore" }) });
       });
     }
   };
