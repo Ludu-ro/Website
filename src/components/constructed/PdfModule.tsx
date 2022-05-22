@@ -12,15 +12,16 @@ import {
 } from "../../clients";
 import { UserContext, UserActionType } from "../../hooks";
 import { useContext } from "react";
-import { ModuleStatus, Status, Student, User } from "../../types";
+import { Module, ModuleStatus, Status, Student, User } from "../../types";
 import Achievement from "../blocks/Achievement";
 
 interface PdfModuleInterface {
   resource: string;
   moduleXp: number | undefined;
+  targetModule: Module | undefined;
 }
 
-function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
+function PdfModule({ targetModule, resource, moduleXp }: PdfModuleInterface) {
   const toast = useToast();
   const navigate = useNavigate();
   const { courseId, moduleId } = useParams();
@@ -97,8 +98,9 @@ function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
       toast({ ...Achievement({ type: "FirstModuleFinished" }) });
     });
 
-    //navigate to quiz page
-    navigate(`quiz`);
+    if(targetModule?.quiz){
+      navigate(`quiz`);
+  }
   };
 
   return (
