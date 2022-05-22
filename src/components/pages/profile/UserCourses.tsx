@@ -13,14 +13,19 @@ function UserCourses() {
   useEffect(() => {
       var newCourses: Array<Course> = [];
       var itemsProcessed = 0;
+      // if there are no started courses
+      if (user?.groups?.length === 0) {
+        dispatch({ type: UserCourseActionType.SetCourses, courses: courses.concat(newCourses) });
+      }
+
       user?.groups?.forEach(courseId => {
         getCourse(courseId).then((course) => {
             itemsProcessed++;
             if (!courses.includes(course)) {
                 newCourses.push(course);
             }
+            // if it proccesed all courses from user
             if (itemsProcessed === user.groups?.length){
-                console.log(newCourses)
                 dispatch({ type: UserCourseActionType.SetCourses, courses: courses.concat(newCourses) });
             }
           })
@@ -30,6 +35,9 @@ function UserCourses() {
           });
       })
   }, []);
+
+  if (user?.role === "teacher")
+    return <div>Courses you created</div>
 
   if (isLoading) {
       return (

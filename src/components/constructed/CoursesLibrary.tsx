@@ -7,7 +7,7 @@ import CoursesLibraryLoading from "./CoursesLibraryLoading";
 
 function CoursesLibrary() {
   const { courses, dispatch, isLoading } = useContext(CoursesContext);
-  console.log(courses);
+
   useEffect(() => {
     getCourses().then((courses) => {
       dispatch({ type: CourseActionType.SetCourses, courses });

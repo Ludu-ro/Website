@@ -13,7 +13,9 @@ import finishModule from "./users/finishModule";
 import getResource from "./modules/getResource";
 import increaseXp from "./users/increaseXp";
 import getDetails from "./users/getDetails";
-import getCourseRecommandation from "./recommandation/getCourseRecommandation";
+
+import getCourseRecommandation from "./assistant/getCourseRecommandation";
+import getStudentStatistics from "./assistant/getStudentStatistics";
 
 export {
   getAchievements,
@@ -29,5 +31,6 @@ export {
   getResource,
   increaseXp,
   getDetails,
-  getCourseRecommandation
+  getCourseRecommandation,
+  getStudentStatistics
 };
