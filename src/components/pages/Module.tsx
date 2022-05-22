@@ -109,11 +109,11 @@ function Module() {
 
     console.log(resource)
     if (resource?.type === ResourceType.PDF) {
-      return <PdfModule resource={resource.url} moduleXp={100} />;
+      return <PdfModule targetModule = {targetModule} resource={resource.url} moduleXp={100} />;
     }
     if (resource?.type === ResourceType.VIDEO) {
 
-      return <VideoModule moduleXp = {targetModule?.xpValue} resource={targetModule?.resources?.replace("https://courses-slides.s3.amazonaws.com/", "https://courses-slides.s3.us-east-1.amazonaws.com/")} />
+      return <VideoModule targetModule = {targetModule} moduleXp = {targetModule?.xpValue} resource={targetModule?.resources?.replace("https://courses-slides.s3.amazonaws.com/", "https://courses-slides.s3.us-east-1.amazonaws.com/")} />
     }
     if (resource?.type === ResourceType.Quiz) {
       return <QuizModule quiz={resource.url} />;

@@ -6,15 +6,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { startModule, finishModule, increaseXp, getDetails } from "../../clients";
 import { UserContext, UserActionType } from "../../hooks";
 import { useContext } from "react";
-import { ModuleStatus, Status, Student, User } from "../../types";
+import { Module, ModuleStatus, Status, Student, User } from "../../types";
 import ReactPlayer from 'react-player'
 
 interface PdfModuleInterface {
   resource: string | undefined;
   moduleXp: number | undefined;
+  targetModule: Module | undefined;
 }
 
-function VideoModule({ resource, moduleXp }: PdfModuleInterface) {
+function VideoModule({targetModule, resource, moduleXp }: PdfModuleInterface) {
 
     const { user, dispatch } = useContext(UserContext);
     const { courseId, moduleId } = useParams();
@@ -62,10 +63,11 @@ function VideoModule({ resource, moduleXp }: PdfModuleInterface) {
                 user: u,
               });
             });
+
+        if(targetModule?.quiz){
+            navigate(`quiz`);
+        }
           }
-      
-          //navigate to quiz page
-          navigate(`quiz`);
       }
 
   return (
