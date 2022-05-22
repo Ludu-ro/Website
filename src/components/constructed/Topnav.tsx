@@ -122,10 +122,10 @@ function Topnav() {
         )}
       </Flex>
       {user.role === "student" && (
-          <Badge color="secondary" bg="primary-dark" borderRadius="lg">
-            Level {(user as Student).level || 0}
-          </Badge>
-        )}
+        <Badge color="secondary" bg="primary-dark" borderRadius="lg">
+          Level {(user as Student).level || 0}
+        </Badge>
+      )}
       <AssistantIcon />
 
       {/* Profile */}
@@ -152,11 +152,11 @@ function Topnav() {
           <MenuItem
             onClick={async () => {
               localStorage.clear();
-              window.location.replace("/");
               dispatch({
                 type: UserActionType.SetUser,
                 user: null,
               });
+              window.location.replace("/");
             }}
             _focus={{ background: "primary-dark" }}
           >

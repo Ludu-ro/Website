@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { ActionButton } from "../blocks";
 import { useNavigate, useParams } from "react-router-dom";
-import { startModule, finishModule, increaseXp, getDetails } from "../../clients";
+import {
+  startModule,
+  finishModule,
+  increaseXp,
+  getDetails,
+  addAchievement,
+} from "../../clients";
 import { UserContext, UserActionType } from "../../hooks";
 import { useContext } from "react";
 import { ModuleStatus, Status, Student, User } from "../../types";
+import Achievement from "../blocks/Achievement";
 
 interface PdfModuleInterface {
   resource: string;
@@ -14,6 +21,7 @@ interface PdfModuleInterface {
 }
 
 function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
+  const toast = useToast();
   const navigate = useNavigate();
   const { courseId, moduleId } = useParams();
 
@@ -29,7 +37,8 @@ function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
   useEffect(() => {
     if (
       user?.courses &&
-      user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.NotStarted
+      user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
+        Status.NotStarted
     ) {
       //api call
       startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
@@ -66,11 +75,12 @@ function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
 
     if (
       user?.courses &&
-      user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.Started
+      user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] ===
+        Status.Started
     ) {
       //api call
       finishModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
-      increaseXp(user.id, moduleXp || 0, localStorage.getItem("jwt"))
+      increaseXp(user.id, moduleXp || 0, localStorage.getItem("jwt"));
 
       //update our user locally
       getDetails(user.id, user.role).then((u) => {
@@ -81,6 +91,11 @@ function PdfModule({ resource, moduleXp }: PdfModuleInterface) {
         });
       });
     }
+
+    // achievement terminat primul curs
+    addAchievement(user?.id, "FirstModuleFinished").then(() => {
+      toast({ ...Achievement({ type: "FirstModuleFinished" }) });
+    });
 
     //navigate to quiz page
     navigate(`quiz`);

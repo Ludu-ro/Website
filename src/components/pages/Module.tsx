@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getCourse, getResource } from "../../clients";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { addAchievement, getCourse, getResource } from "../../clients";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import { Course, Module as ModuleType } from "../../types";
 import { ModuleAccordion, PdfModule, VideoModule } from "../constructed";
 import QuizModule from "../constructed/QuizModule";
+import Achievement from "../blocks/Achievement";
+import { UserContext } from "../../hooks";
 
 enum ResourceType {
   PDF = "pdf",
@@ -19,13 +21,18 @@ interface Resource {
 }
 
 function Module() {
+  const toast = useToast();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { courseId, moduleId } = useParams();
+  const isQuizPage = pathname.includes("quiz");
+
+  const { user } = useContext(UserContext);
+
   const [course, setCourse] = useState<Course>();
   const [targetModule, setTargetModule] = useState<ModuleType>();
   const [resource, setResource] = useState<Resource>();
-  const isQuizPage = pathname.includes("quiz");
 
   const loadData = async () => {
     const course = await getCourse(courseId);
@@ -42,6 +49,34 @@ function Module() {
   useEffect(() => {
     loadData();
   }, [courseId, moduleId]);
+
+  // achievement inceput primul curs
+  useEffect(() => {
+    if (!user || !course || !course.tags) return;
+    for (let i = 0; i < course.tags.length; i++) {
+      const tag = course.tags[i];
+      if (tag === "JAVA") {
+        addAchievement(user.id, "FirstJavaCourse").then(() => {
+          toast({ ...Achievement({ type: "FirstJavaCourse" }) });
+        });
+      }
+      if (tag === "AWS") {
+        addAchievement(user.id, "FirstAwsCourse").then(() => {
+          toast({ ...Achievement({ type: "FirstAwsCourse" }) });
+        });
+      }
+      if (tag === "PYTHON") {
+        addAchievement(user.id, "FirstPythonCourse").then(() => {
+          toast({ ...Achievement({ type: "FirstPythonCourse" }) });
+        });
+      }
+      if (tag === "MYSQL") {
+        addAchievement(user.id, "FirstMySqlCourse").then(() => {
+          toast({ ...Achievement({ type: "FirstMySqlCourse" }) });
+        });
+      }
+    }
+  }, [user, course]);
 
   const computeResourceType = (resources: string): ResourceType => {
     if (resources.endsWith("pdf")) {
