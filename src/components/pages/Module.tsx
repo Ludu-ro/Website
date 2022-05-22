@@ -78,7 +78,7 @@ function Module() {
     }
     if (resource?.type === ResourceType.VIDEO) {
 
-      return <VideoModule resource={targetModule?.resources?.replace("https://courses-slides.s3.amazonaws.com/", "https://courses-slides.s3.us-east-1.amazonaws.com/")} moduleXp={100} />
+      return <VideoModule moduleXp = {targetModule?.xpValue} resource={targetModule?.resources?.replace("https://courses-slides.s3.amazonaws.com/", "https://courses-slides.s3.us-east-1.amazonaws.com/")} />
     }
     if (resource?.type === ResourceType.Quiz) {
       return <QuizModule quiz={resource.url} />;

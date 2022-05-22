@@ -16,12 +16,62 @@ interface PdfModuleInterface {
 
 function VideoModule({ resource, moduleXp }: PdfModuleInterface) {
 
-  const navigate = useNavigate();
+    const { user, dispatch } = useContext(UserContext);
+    const { courseId, moduleId } = useParams();
+    const navigate = useNavigate();
 
-  console.log(resource)
+    useEffect(() => {
+        if (
+          user?.courses &&
+          user?.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.NotStarted
+        ) {
+          //api call
+          startModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+    
+          //update our user locally
+          const newUser: User = { ...user };
+          newUser.courses = user.courses?.map((m: ModuleStatus) => {
+            if (m.id === moduleId) {
+              return { id: moduleId, status: Status.Started };
+            }
+            return m;
+          });
+    
+          dispatch({
+            type: UserActionType.SetUser,
+            user: newUser,
+          });
+        }
+      }, [courseId, moduleId]);
+    
+      const handleEnded = () => {
+        console.log('onEnded')
+        if (
+            user?.courses &&
+            user.courses.find((m: ModuleStatus) => m.id === moduleId)["status"] === Status.Started
+          ) {
+            //api call
+            finishModule(user?.id, moduleId || "", localStorage.getItem("jwt"));
+            increaseXp(user.id, moduleXp || 0, localStorage.getItem("jwt"))
+      
+            //update our user locally
+            getDetails(user.id, user.role).then((u) => {
+              u.role = user.role;
+              dispatch({
+                type: UserActionType.SetUser,
+                user: u,
+              });
+            });
+          }
+      
+          //navigate to quiz page
+          navigate(`quiz`);
+      }
 
   return (
-         <ReactPlayer   width='1000px'
+         <ReactPlayer   
+         onEnded={handleEnded}
+         width='1000px'
          height='100%' url={resource} controls={true}/>
   );
 }
