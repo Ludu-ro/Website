@@ -72,7 +72,6 @@ function Register() {
         type
       );
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 100000));
       navigate("/login");
     } catch (e: any) {
       const errors: any = {};

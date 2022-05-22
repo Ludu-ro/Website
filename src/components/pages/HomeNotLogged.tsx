@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { CoursesLibrary } from "../constructed";
 import { useNavigate } from "react-router-dom";
 import { ActionButton } from "../blocks";
+import { UserContext } from "../../hooks";
+import HomeLogged from "./HomeLogged";
 
-function Home() {
+function HomeNotLogged() {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+
+  if (user) {
+    return <HomeLogged />;
+  }
 
   return (
     <Flex
@@ -39,4 +46,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeNotLogged;
