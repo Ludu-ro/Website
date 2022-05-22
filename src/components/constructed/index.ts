@@ -6,6 +6,7 @@ import CoursesLibraryLoading from "./CoursesLibraryLoading";
 import Footer from "./Footer";
 import ModuleAccordion from "./ModuleAccordion";
 import PdfModule from "./PdfModule";
+import VideoModule from "./VideoModule";
 import Topnav from "./Topnav";
 import CoursesRecommandation from "./recommandation/CoursesRecommandation";
 import CoursesRecommandationLoading from "./recommandation/CoursesRecommandationLoading";
@@ -19,6 +20,7 @@ export {
   Footer,
   ModuleAccordion,
   PdfModule,
+  VideoModule,
   Topnav,
   CourseDetails,
   CoursesRecommandation,
