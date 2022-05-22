@@ -8,6 +8,7 @@ async function getResource(resource: string): Promise<any> {
   const { data } = await axios.get(resource, {
     responseType: "blob",
   });
+
   return data;
 }
 
