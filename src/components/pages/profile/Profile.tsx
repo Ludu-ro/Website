@@ -8,6 +8,8 @@ import { Course, Module } from "../../../types";
 import UserInfo from "./UserInfo";
 import UserAchievements from "./UserAchievements";
 import AssistantSettings from "./AssistantSettings";
+import UserCourses from "./UserCourses";
+import UserStatistics from "./UserStatistics";
 
 function Profile() {
   const navigate = useNavigate();
@@ -64,6 +66,8 @@ function Profile() {
           {viewType === "UserAchievements" && (
             <UserAchievements achievements={userAchievements} />
           )}
+          {viewType === "UserCourses" && <UserCourses />}
+          {viewType === "UserStatistics" && <UserStatistics />}
         </Flex>
       </Flex>
     </Flex>

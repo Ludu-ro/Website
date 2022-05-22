@@ -15,6 +15,9 @@ import { CourseRecommandationActionType, CourseRecommandationActions } from "./a
 import { CourseRecommandationReducer } from "./reducers/CourseRecommandationReducer";
 
 import { useSocket } from "./useSocket";
+import { UserCourseContext, UserCourseContextProvider } from "./UserCourseContext"
+import { UserCourseActions, UserCourseActionType } from "./actions/UserCourseActions";
+import { UserCourseReducer } from "./reducers/UserCourseReducer";
 
 export {
   // courses context
@@ -37,7 +40,12 @@ export {
   CoursesRecommandationContextProvider,
   CourseRecommandationActionType,
   CourseRecommandationReducer,
+  //userCourse
+  UserCourseContext,
+  UserCourseContextProvider,
+  UserCourseActionType,
+  UserCourseReducer,
   // socket
   useSocket,
 };
-export type { CourseActions, UserActions, CourseDetailsActions, CourseRecommandationActions };
+export type { CourseActions, UserActions, CourseDetailsActions, CourseRecommandationActions, UserCourseActions };

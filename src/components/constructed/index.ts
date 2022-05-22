@@ -10,6 +10,8 @@ import Topnav from "./Topnav";
 import CoursesRecommandation from "./recommandation/CoursesRecommandation";
 import CoursesRecommandationLoading from "./recommandation/CoursesRecommandationLoading";
 import CoursesRecommandationItem from "./recommandation/CoursesRecommandationItem";
+import UserCourseLoading from "./UserCourseLoading";
+import UserCourseItem from "./UserCourseItem";
 
 export {
   Assistant,
@@ -23,5 +25,7 @@ export {
   CourseDetails,
   CoursesRecommandation,
   CoursesRecommandationLoading,
-  CoursesRecommandationItem
+  CoursesRecommandationItem,
+  UserCourseLoading,
+  UserCourseItem
 };

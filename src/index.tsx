@@ -9,7 +9,8 @@ import {
   CourseDetailsContextProvider,
   CoursesContextProvider,
   UserContextProvider,
-  CoursesRecommandationContextProvider
+  CoursesRecommandationContextProvider,
+  UserCourseContextProvider
 } from "./hooks";
 import { AssistantContextProvider } from "./components/constructed/assistant/AssistantContext";
 
@@ -20,10 +21,12 @@ ReactDOM.render(
         <CoursesContextProvider>
           <CoursesRecommandationContextProvider>
             <CourseDetailsContextProvider>
-              <AssistantContextProvider>
-                <ColorModeScript />
-                <App />
-              </AssistantContextProvider>
+              <UserCourseContextProvider>
+                <AssistantContextProvider>
+                  <ColorModeScript />
+                  <App />
+                </AssistantContextProvider>
+              </UserCourseContextProvider>
             </CourseDetailsContextProvider>
           </CoursesRecommandationContextProvider>
         </CoursesContextProvider>
