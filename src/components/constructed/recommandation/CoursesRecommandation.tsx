@@ -23,6 +23,7 @@ const { user } = useContext(UserContext)
       );
   }
 
+  if (courses.length == 0) return <></>
   return (
     <Flex alignItems="flex-start" direction="column" gap="8">
       <CoursesRecommandationItem courses={courses} />
