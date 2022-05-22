@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { addAchievement, getCourse, getResource } from "../../clients";
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import { Course, Module as ModuleType } from "../../types";
-import { ModuleAccordion, PdfModule } from "../constructed";
+import { ModuleAccordion, PdfModule, VideoModule } from "../constructed";
 import QuizModule from "../constructed/QuizModule";
 import Achievement from "../blocks/Achievement";
 import { UserContext } from "../../hooks";
@@ -82,6 +82,9 @@ function Module() {
     if (resources.endsWith("pdf")) {
       return ResourceType.PDF;
     }
+    if (resources.endsWith(".mp4")) {
+      return ResourceType.VIDEO;
+    }
     return ResourceType.WYSIWYG;
   };
 
@@ -103,8 +106,14 @@ function Module() {
   }, [targetModule, isQuizPage]);
 
   function ResourceViewer({ resource }: { resource?: Resource }) {
+
+    console.log(resource)
     if (resource?.type === ResourceType.PDF) {
       return <PdfModule resource={resource.url} moduleXp={100} />;
+    }
+    if (resource?.type === ResourceType.VIDEO) {
+
+      return <VideoModule moduleXp = {targetModule?.xpValue} resource={targetModule?.resources?.replace("https://courses-slides.s3.amazonaws.com/", "https://courses-slides.s3.us-east-1.amazonaws.com/")} />
     }
     if (resource?.type === ResourceType.Quiz) {
       return <QuizModule quiz={resource.url} />;
